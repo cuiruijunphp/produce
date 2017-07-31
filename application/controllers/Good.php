@@ -21,7 +21,7 @@ class Good extends MY_Controller {
 	public function good_list()
 	{
 		// 按设置的规则检查参数
-		$rules = [ 'page,page_size' => 'trim|integer','type_id'=>'integer'];
+		$rules = ['page,page_size' => 'trim|integer','type_id,shop_id'=>'integer'];
 		$params = $this->check_param($rules);
 
 		//默认页码
@@ -39,16 +39,24 @@ class Good extends MY_Controller {
 		}
 
         $where = [];
-        //默认一页多少条
-        if(!isset($params['type_id'])){
+        if(isset($params['type_id']) && $params['type_id']){
             $where['type_id'] = $params['type_id'];
+        }
+        if(isset($params['shop_id']) && $params['shop_id']){
+            $where['shop_id'] = $params['shop_id'];
         }
 
 		$offset = ($page-1)*$page_size;
         $where['is_show'] = 1;
-        $where['is_del'] = 0;
 		$res = $this->goods->get_list($where,$page_size,$offset,' sort desc');
-		$count = $this->goods->get_total();
+        if($res){
+            foreach($res as $k=>&$v){
+                if($v['img']){
+                    $v['img'] = APP_URL.$v['img'];
+                }
+            }
+        }
+		$count = $this->goods->get_total($where);
         $this->return_data(['result'=>$res,'total'=>$count]);
 	}
 

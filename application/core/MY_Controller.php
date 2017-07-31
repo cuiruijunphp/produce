@@ -22,12 +22,8 @@ class MY_Controller extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-        //全局路径  
-        $base_url = base_url();
-        if ($base_url == "http://localhost/") {
-            $base_url = "http://local.api_1gaopeng.com/";
-        }
-        define('APP_URL', $base_url);
+        //全局路径
+        define('APP_URL', $this->config->item('url_domain'));
         define('UPLOAD_URL', APP_URL . 'statics/uploads/');
     }
 

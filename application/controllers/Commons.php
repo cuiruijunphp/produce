@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Common extends MY_Controller {
+class Commons extends MY_Controller {
 
 	/**
 	 * 公共接口
@@ -19,6 +19,13 @@ class Common extends MY_Controller {
 	public function banner_list()
 	{
 		$res = $this->banner->get_list([],-1,0,' sort desc');
+        if($res){
+            foreach($res as $k=>&$v){
+                if($v['img']){
+                    $v['img'] = APP_URL.$v['img'];
+                }
+            }
+        }
 		$count = $this->banner->get_total();
         $this->return_data(['result'=>$res,'total'=>$count]);
 	}
