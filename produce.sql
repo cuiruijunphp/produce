@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50626
 File Encoding         : 65001
 
-Date: 2017-07-19 16:35:38
+Date: 2017-07-24 00:24:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,7 +21,7 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) DEFAULT NULL COMMENT '买家id',
+  `uid` int(10) DEFAULT NULL COMMENT '买家id',
   `good_id` int(10) DEFAULT NULL COMMENT '商品id',
   `num` int(10) DEFAULT '1' COMMENT '购买数量(目前为1)',
   `is_del` tinyint(1) DEFAULT NULL COMMENT '是否删除(1-是，0-否)',
@@ -45,6 +45,7 @@ CREATE TABLE `goods` (
   `desc` text COMMENT '商品描述',
   `sort` int(10) DEFAULT NULL COMMENT '排序',
   `is_show` tinyint(1) DEFAULT '1' COMMENT '是否显示(1-是,0-否)',
+  `is_del` tinyint(1) DEFAULT NULL COMMENT '是否删除(1-是,0-否)',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -73,6 +74,7 @@ CREATE TABLE `good_type` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` varchar(255) DEFAULT NULL COMMENT 'uid',
   `username` varchar(255) NOT NULL DEFAULT '' COMMENT '用户名',
   `openid` varchar(255) DEFAULT NULL COMMENT '微信的openid',
   `password` varchar(255) DEFAULT NULL COMMENT '密码',

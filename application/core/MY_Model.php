@@ -196,6 +196,18 @@ class MY_Model extends CI_Model {
     }
 
     /**
+     * 删除一行记录
+     * @param type $id          // 记录ID
+     */
+    public function delete_by_id($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete($this->_table);
+
+        return $this->db->affected_rows();
+    }
+
+    /**
      * 获取当前条件查询的总记录数
      * @return mixed
      */
