@@ -60,6 +60,27 @@ class Good extends MY_Controller {
         $this->return_data(['result'=>$res,'total'=>$count]);
 	}
 
+    /*
+     *
+     * 获取商品详情
+     *
+     *
+     */
+    public function detail(){
+        // 按设置的规则检查参数
+        $rules = ['id' => 'required|integer'];
+        $params = $this->check_param($rules);
+
+        $res = $this->goods->read($params['id']);
+        if($res){
+            if($res['img']){
+                $res['img'] = APP_URL.$res['img'];
+            }
+        }
+
+        $this->return_data($res);
+    }
+
 	/*
 	 * 添加商品
 	 */

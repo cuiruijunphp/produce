@@ -131,7 +131,7 @@ return:
 
 #### 2.2.2 商品删除 ####
 
-url:http://pro.cuithink.com/goods/del
+url:http://pro.cuithink.com/good/del
 
 type:post 
 
@@ -144,4 +144,33 @@ return:
     "code": "200",
     "msg": 200,
     "data": "操作成功"
+}
+
+#### 2.2.3 商品详情 ####
+
+url:http://pro.cuithink.com/good/detail
+
+type:get 
+
+param:
+	 id:1    //id
+
+return:
+
+{
+    "code": "200",
+    "msg": "",
+    "data": {
+        "id": "1",
+        "name": "南瓜",
+        "type_id": "1",
+        "shop_id": "1",
+        "img": "http://www.pro.com/static/uploads/1.png",
+        "price": "10.5",
+        "sale_price": "5",
+        "stock": "100",
+        "desc": "该产品很牛逼",
+        "sort": "1",
+        "is_show": "1"
+    }
 }

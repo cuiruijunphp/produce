@@ -38,6 +38,13 @@ class Type extends MY_Controller {
 
 		$offset = ($page-1)*$page_size;
 		$res = $this->good_type->get_list([],$page_size,$offset,' sort desc');
+        if($res){
+            foreach($res as $k=>&$v){
+                if($v['img']){
+                    $v['img'] = APP_URL.$v['img'];
+                }
+            }
+        }
 		$count = $this->good_type->get_total();
         $this->return_data(['result'=>$res,'total'=>$count]);
 	}
