@@ -142,57 +142,131 @@ class Http extends Instance {
     }
 }
 
-class Db {
+class Mysql extends absdb {
 
-    private static $_instance;  //static可以保存值不丢失
-    private static $_dbConnect;
-    private $_dbConfig = array(
-        'host' => '127.0.0.1',
-        'user' => 'root',
-        'password' => 'root123',
-        'database' => 'produce',
-    );//保存数据库的配置信息
-
-    //使用private防止用户new
-    private function __construct(){
-
-    }
-
-    //重写clone防止用户进行clone
-    public function __clone(){
-        //当用户clone操作时产生一个错误信息
-        trigger_error("Can't clone object",E_USER_ERROR);
-    }
-
-    //由类的自身来进行实例化
-    public static function getInstance(){
-        if(!(self::$_instance instanceof self)){
-            self::$_instance = new self();
+    protected static $ins = null;
+    protected $host; // 主机名
+    protected $user; // 用户名
+    protected $passwd; // 密码
+    protected $db;   // 数据库名
+    protected $port;  // 端口
+    protected $conn = null;
+    // 在内部操作,获得一个对象
+    public static function getIns() {
+        if(self::$ins === null) {
+            self::$ins = new self();
         }
-        return self::$_instance;
+        $conf = conf::getIns();
+        self::$ins->host = $conf->host;
+        self::$ins->user = $conf->user;
+        self::$ins->passwd = $conf->pwd;
+        self::$ins->db = $conf->db;
+        self::$ins->port = $conf->port;
+        self::$ins->connect();
+        self::$ins->select_db();
+        self::$ins->setChar();
+        return self::$ins;
     }
-
-    public function connect(){
-        self::$_dbConnect = @mysql_connect($this->_dbConfig['host'],
-            $this->_dbConfig['user'],$this->_dbConfig['password']);
-
-        if(!self::$_dbConnect){
-            throw new Exception("mysql connect error".mysql_error());
-            //die("mysql connect error".mysql_error());
+    // 不让外部做new操作,
+    protected function __construct() {
+    }
+    // 连接数据库
+    public function connect() {
+        $this->conn = @mysql_connect($this->host,$this->user,$this->passwd,$this->port);
+        if(!$this->conn) {
+            $error = new Exception('数据库连不上',9);
+            throw $error;
         }
-
-        mysql_query("SET NAMES UTF8");
-        mysql_select_db($this->_dbConfig['database'],self::$_dbConnect);
-        return self::$_dbConnect;
     }
-
-    public function insert_data($table_name,$columns,$data){
-
-         return mysql_query("insert into ".$table_name."(".$columns.") values(".$data.")");
+    // 发送sql查询
+    public function query($sql) {
+        $rs = mysql_query($sql,$this->conn);
+        if(!$rs) {
+            log::write($sql);
+        }
+        return $rs;
     }
-
-    public function query($sql){
-        return mysql_query($sql);
+    // 封装一个getAll方法
+    // 参数:$sql
+    // 返回: array,false
+    public function getAll($sql) {
+        $rs = $this->query($sql);
+        if(!$rs) {
+            return false;
+        }
+        $list = array();
+        while($row = mysql_fetch_assoc($rs)) {
+            $list[] = $row;
+        }
+        return $list;
+    }
+    // 封装一个getRow方法
+    // 参数:$sql
+    // 返回: array,false
+    public function getRow($sql) {
+        $rs = $this->query($sql);
+        if(!$rs) {
+            return false;
+        }
+        return mysql_fetch_assoc($rs);
+    }
+    // 封装一个getOne方法,
+    // 参数: $sql
+    // 返回: int,str(单一的值)
+    public function getOne($sql) {
+        $rs = $this->query($sql);
+        if(!$rs) {
+            return false;
+        }
+        $tmp = mysql_fetch_row($rs);
+        return $tmp[0];
+    }
+    // 封装一个afftect_rows()方法
+    // 参数:无
+    // 返回 int 受影响行数
+    public function affected_rows() {
+        return mysql_affected_rows($this->conn);
+    }
+    // 返回最新生成的auto_increment列的值
+    public function last_id() {
+        return mysql_insert_id($this->conn);
+    }
+    // 选库函数
+    public function select_db() {
+        $sql = 'use ' . $this->db;
+        return $this->query($sql);
+    }
+    // 设置字符集的函数
+    public function setChar() {
+        $sql = 'set names utf8';
+        return $this->query($sql);
+    }
+    // 自动生成insert语句,update语句并执行
+    public function autoExecute($data,$table,$act='insert',$where='') {
+        if($act == 'insert') {
+            $sql = 'insert into ' . $table . ' (';
+            $sql .= implode(',',(array_keys($data)));
+            $sql .= ') values (\'';
+            $sql .= implode("','",array_values($data));
+            $sql .= "')";
+        } else if($act == 'update') {
+            if(!trim($where)) {
+                return false;
+            }
+            $sql = 'update ' . $table . ' set ';
+            foreach($data as $k=>$v) {
+                $sql .= $k;
+                $sql .= '=';
+                $sql .= "'".$v."',";
+            }
+            $sql = substr($sql,0,-1);
+            $sql .= ' where ';
+            $sql .= $where;
+        } else {
+            return false;
+        }
+        //return $sql;
+        return $this->query($sql);
     }
 }
 
@@ -202,17 +276,12 @@ class WeChat extends Instance
     private $app_id='wx7bec172455adfdbb';
     private $app_secret='d7a0452b19ad9e696c43a262a9d489c7';
     private $callback_action_url = '';   //TODO 该路径需要指向到本类中的callback方法
-    private $connect = '';
+    private $mysql_db = '';
 
     public function __construct()
     {
-//        if (Request::getInstance()->isTestDev()){
-//            $prefix = 'test';
-//        } else {
-//            $prefix = 'ecc';
-//        }
         $this->web_auth_callback =  $this->web_auth_callback;
-        $this->connect = DB::getInstance()->connect();
+        $this->mysql_db = Mysql::getInstance();
     }
 
     public function callback(Closure $callback)
@@ -366,6 +435,7 @@ class WeChat extends Instance
     {
         //TODO 需要重写以下功能
         //创建用户
+
         //创建用户账户
         //记录用户登录
     }
@@ -379,6 +449,7 @@ class WeChat extends Instance
     {
         //TODO 需要重写以下功能
         //根据openid查询数据库
+
         //判断用户是否注册，若已经注册，则更新用户最后登录时间，返回true；若该openid没有注册，则返回false
     }
 
