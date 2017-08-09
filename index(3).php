@@ -12,8 +12,6 @@ error_reporting(E_ERROR);
 const ACCESS_TOKEN = "accessToken";
 const USER_INFO = "userinfo";
 const OPEN_ID = "openid";
-const DOMAIN_TEST = "test.gaopeng.com";
-const DOMAIN_ONLINE = "ecc.gaopeng.com";
 
 /**
  * 调试函数(打屏幕打印)
@@ -274,7 +272,7 @@ class WeChat extends Instance
 {
     private $web_auth_callback='wx.cuithink.com/index.php';
     private $app_id='wx7bec172455adfdbb';
-    private $app_secret='d7a0452b19ad9e696c43a262a9d489c7';
+    private $app_secret='5c5e5024e8a373c160c40fee26a92beb';
     private $callback_action_url = '';   //TODO 该路径需要指向到本类中的callback方法
     private $mysql_db = '';
 
@@ -292,7 +290,7 @@ class WeChat extends Instance
         if ($code != '') {
             $url = 'https://api.weixin.qq.com/sns/oauth2/access_token';
             $url .= '?appid=' . 'wx7bec172455adfdbb';
-            $url .= '&secret=' . 'd7a0452b19ad9e696c43a262a9d489c7';
+            $url .= '&secret=' . '5c5e5024e8a373c160c40fee26a92beb';
             $url .= '&code=' . $code;
             $url .= '&grant_type=authorization_code';
             $json = $this->setCurlGet($url);
@@ -422,7 +420,7 @@ class WeChat extends Instance
             $data ['access_token'] = '';
         }
 
-        return $data ['access_token'];
+        return $data['access_token'];
     }
 
     /*-------------------------------内部方法---------------------------------------------*/
