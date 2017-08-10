@@ -289,8 +289,8 @@ class WeChat extends Instance
 
         if ($code != '') {
             $url = 'https://api.weixin.qq.com/sns/oauth2/access_token';
-            $url .= '?appid=' . 'wx7bec172455adfdbb';
-            $url .= '&secret=' . '5c5e5024e8a373c160c40fee26a92beb';
+            $url .= '?appid=' . $this->app_id;
+            $url .= '&secret=' . $this->app_secret;
             $url .= '&code=' . $code;
             $url .= '&grant_type=authorization_code';
             $json = $this->setCurlGet($url);
@@ -305,7 +305,7 @@ class WeChat extends Instance
 
                 $scope = isset($result['scope']) ? $result['scope'] : 'snsapi_base';
                 if ($scope == 'snsapi_base') {
-                    $this->getWebAuthBase($state, 'snsapi_userinfo');
+                    $this->getWebAuthBase($state, 'snsapi_base');//返回open_id
                 } else {
                     $access_token = isset($result['access_token']) ? $result['access_token'] : '';
 
@@ -721,7 +721,7 @@ if (!$cookie->get(ACCESS_TOKEN)){
         $weChat->getWebAuthUserInfo($href ? urlencode($href) : null);
     } else {
         $weChat->callback(function($userInfo) use ($cookie, $request){
-            $login_url = 'http://' . ($request->isTestDev() ? 'test.passport' : 'support') .'.gaopeng.com/api/member/fast-login';
+            $login_url = 'http://wx.cuithink.com/api/member/fast-login';
             if ($userInfo) {
                 $openid = $userInfo['openid'];
                 $jsonStr = json_encode($userInfo);

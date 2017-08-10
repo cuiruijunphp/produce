@@ -31,8 +31,8 @@ class Taa extends MY_Controller {
 			$page_size = $params['page_size'];
 		}
 
-		$where['cow_id'] = $params['cow_id'];
-        $cow_res = $this->cow_info->get_cow_info(['a.id'=>$params['cow_id']]);
+		$where['sen_id'] = $params['cow_id'];
+        $cow_res = $this->cow_info->get_cow_info(['a.sen_id'=>$params['cow_id']]);
 		$res = $this->cow_taa->get_list($where,$page_size,0,' time desc');
 		$res = array_reverse($res);
         $x_list = [];

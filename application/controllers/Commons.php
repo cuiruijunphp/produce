@@ -11,6 +11,8 @@ class Commons extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('banner');
+		$this->load->model('user');
+		$this->load->model('access_token');
 	}
 
 	/*
@@ -28,5 +30,23 @@ class Commons extends MY_Controller {
         }
 		$count = $this->banner->get_total();
         $this->return_data(['result'=>$res,'total'=>$count]);
+	}
+
+	public  function open_id_is_exist(){
+		// 按设置的规则检查参数
+		$rules = ['open_id' => 'trim|required'];
+		$params = $this->check_param($rules);
+
+
+		$where['openid'] = $params['open_id'];
+		//查看是否已经注册
+
+		$user_res = $this->user->get_one($where);
+		if($user_res){
+			//查询access_token过期时间
+
+		}
+		$count = $this->goods->get_total($where);
+		$this->return_data(['result'=>$res,'total'=>$count]);
 	}
 }
