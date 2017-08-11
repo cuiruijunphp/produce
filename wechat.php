@@ -1,5 +1,6 @@
 <?php
 
+    header('content-type:text');
     $signature = $_GET['signature'];
     $timestamp = $_GET['timestamp'];
     $nonce = $_GET['nonce'];
