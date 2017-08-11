@@ -174,3 +174,39 @@ return:
         "is_show": "1"
     }
 }
+
+
+#### 2.2.4 买家购买 ####
+
+url:http://pro.cuithink.com/good_cart/add
+
+type:post 
+
+param:
+	 uid:'agagag',    //买家uid
+	 good_id:1,       //商品id
+	 num:2            //买了几件
+
+return:
+
+{
+    "code": "200",
+    "msg": 200,
+    "data": "操作成功"
+}
+
+
+#### 2.2.5 订单列表 ####
+
+url:http://pro.cuithink.com/good_cart/cart_list
+
+type:post 
+
+param:
+	 uid:'agagag',    //买家/卖家 uid
+
+return:
+
+{
+    //暂定，哈哈哈
+}

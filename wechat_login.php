@@ -143,7 +143,7 @@ class Http extends Instance {
 
 class WeChat extends Instance
 {
-    private $web_auth_callback='wx.cuithink.com/index.php';
+    private $web_auth_callback='pro.cuithink.com/index.php';
     private $app_id='wx7bec172455adfdbb';
     private $app_secret='5c5e5024e8a373c160c40fee26a92beb';
     private $callback_action_url = '';   //TODO 该路径需要指向到本类中的callback方法
