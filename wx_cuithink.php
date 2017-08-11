@@ -21,12 +21,12 @@
 	fwrite($fp,$signature.PHP_EOL);
 
 	if($str == $signature){
-		fwrite($fp,'success'.PHP_EOL)
+		fwrite($fp,'success'.PHP_EOL);
 		echo  $str;
 		exit;
 	}else{
  		
-		fwrite($fp,'fail'.PHP_EOL)
+		fwrite($fp,'fail'.PHP_EOL);
 		echo 'fail';
 		exit;	
 	}
