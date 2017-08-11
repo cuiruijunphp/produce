@@ -304,7 +304,9 @@ class WeChat extends Instance
 
                 $scope = isset($result['scope']) ? $result['scope'] : 'snsapi_base';
                 if ($scope == 'snsapi_base') {
-                    $this->getWebAuthBase($state, 'snsapi_base');
+                    //$this->getWebAuthBase($state, 'snsapi_base');
+                    $user_info['openid'] = $result['openid'];
+                    $user_info['access_token'] = $result['access_token'];
                 } else {
                     $access_token = isset($result['access_token']) ? $result['access_token'] : '';
 
@@ -724,13 +726,14 @@ if (!$cookie->get(ACCESS_TOKEN)){
 
     //先取access_token
     //$access_token = $weChat->getToken();
+    $type = $request->get('type');
     if (!$request->get('code') && !$request->get('state')){
         $href = $request->get('href');
         //获取code 和 state
         $weChat->getWebAuthUserInfo($href ? urlencode($href) : null);
     } else {
         $weChat->callback(function($userInfo) use ($cookie, $request){
-            $login_url = 'http://wx.cuithink.com/index.php/common/open_id_is_exist';
+            $login_url = 'http://produce.cuithink.com/index.php/common/open_id_is_exist';
             if ($userInfo) {
                 $openid = $userInfo['openid'];
                 $jsonStr = json_encode($userInfo);
@@ -746,7 +749,7 @@ if (!$cookie->get(ACCESS_TOKEN)){
                         $accessToken = $data['accessToken'];
                         $timeOut = $data['expire_time'];
                         $cookie->set(ACCESS_TOKEN, $accessToken, $timeOut);
-                        $cookie->set(OPEN_ID, $data['openid'], $timeOut);
+                        $cookie->set(OPEN_ID, $data['open_id'], $timeOut);
 //                        $cookie->set(USER_INFO, ['name' => $data['nickname'], 'figureurl' => $data['avatar']], $timeOut);
                         jump($request->get('state'));
                     } else {
