@@ -35,7 +35,7 @@ class Commons extends MY_Controller {
 	//查看是否有注册用户
 	public  function open_id_is_exist(){
 		// 按设置的规则检查参数
-		$rules = ['open_id,thirdInfo' => 'trim|required'];
+		$rules = ['open_id,thirdInfo' => 'trim'];
 		$params = $this->check_param($rules);
 
 		$access_token = $params['thirdInfo']['access_token'];
