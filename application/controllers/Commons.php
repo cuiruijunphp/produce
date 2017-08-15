@@ -39,8 +39,6 @@ class Commons extends MY_Controller {
 		$params = $this->check_param($rules,[],'post');
 
 		$access_token = $params['access_token'];
-		echo $access_token;
-		echo $params['open_id'];
 		$where['open_id'] = $params['open_id'];
 		//查看是否已经注册
 		$user_res = $this->user->get_one($where);
@@ -57,7 +55,7 @@ class Commons extends MY_Controller {
 			}else{
 				$mobile = 1;
 			}
-			$insert_res = $this->user->add(['open_id'=>$params['open_id'],'uid'=>$uid,'type' => $type,'mobile'=>$mobile,'nick_name'=>base64_decode($params['nick_name'])]);
+			$insert_res = $this->user->add(['open_id'=>$params['open_id'],'uid'=>$uid,'type' => $type,'mobile'=>$mobile,'nick_name'=>urldecode($params['nick_name'])]);
 
 			//增加access_token
 			if($insert_res){
