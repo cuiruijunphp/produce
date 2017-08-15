@@ -42,7 +42,8 @@ class Commons extends MY_Controller {
 		echo $access_token;
 		echo $params['open_id'];
 		$where['open_id'] = $params['open_id'];
-		return;
+		$this->return_data(['access'=>$access_token,'open_id'=>$params['open_id']]);
+		exit;
 		//查看是否已经注册
 		$user_res = $this->user->get_one($where);
 		if($user_res){
