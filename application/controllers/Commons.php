@@ -120,12 +120,12 @@ class Commons extends MY_Controller {
 		}
 
 		$this->load->library('aliyun_sms');
-		$signName = '湘采连';
-		$templateCode = '111';
+		$signName = '湘联采';
+		$templateCode = 'SMS_85990047';
 //		$phoneNumbers = '18565616993';
 		$phoneNumbers = $params['phone'];
 		$verfiry = rand(1000,9999);
-		$templateParam = "{\"verfiry\":".$verfiry."}";
+		$templateParam = "{\"number\":".$verfiry."}";
 
 		//写入数据库,返回结果
 		$res = $this->sms_msg->add([
