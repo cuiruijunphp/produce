@@ -49,7 +49,7 @@ class Commons extends MY_Controller {
 		}else{
 			//如果没有的话,就新建一个账户,然后写入表
 			$uid = $this->create_guid();
-			$type = 1;
+			$type = $params['type'];
 			//1-买家，2-商户
 			if($type == 1){
 				$mobile = '';
@@ -91,6 +91,7 @@ class Commons extends MY_Controller {
 
 	public function test_get(){
 		// 按设置的规则检查参数
+
 		$rules = ['open_id,access_token,nick_name,type' => 'trim'];
 		$params = $this->check_param($rules,[],'post');
 
@@ -98,5 +99,46 @@ class Commons extends MY_Controller {
 		$params['accessToken'] = $access_token;
 
 		$this->return_data($params);
+	}
+
+	public function send_msg(){
+		$rules = ['uid,phone' => 'trim'];
+		$params = $this->check_param($rules,[],'post');
+
+		//判断该手机号是否在允许注册范围内
+		$phone_is_exist = 0;
+		$this->load->model('phones');
+		$phone_list = $this->phones->get_list([],-1);
+		foreach($phone_list as $v){
+			if($v['phone'] == $params['phone']){
+				$phone_is_exist = 1;
+				break;
+			}
+		}
+		if($phone_is_exist == 0){
+			$this->returnError('手机号不在允许范围内');
+			exit;
+		}
+
+		$this->load->library('aliyun_sms');
+		$signName = '湘采连';
+		$templateCode = '111';
+//		$phoneNumbers = '18565616993';
+		$phoneNumbers = $params['phone'];
+		$verfiry = rand(1000,9999);
+		$templateParam = "{\"verfiry\":".$verfiry."}";
+
+		//写入数据库,返回结果
+		$this->load->model('sms_msg');
+		$res = $this->sms_msg->add([
+				'phone'=>$params['phone'],
+				'create_time'=>time(),
+				'expire_time'=>time()+60,
+				'text'=>$verfiry,
+		]);
+		if($res){
+			$result = $this->aliyun_sms->sendSms($signName, $templateCode, $phoneNumbers, $templateParam = null, $outId = null);
+			$this->return_data($result);
+		}
 	}
 }
