@@ -21,8 +21,12 @@ class Good_cart extends MY_Controller {
 	public function cart_list()
 	{
 		// 按设置的规则检查参数
-		$rules = [ 'page,page_size' => 'trim|integer','uid'=>'integer|required'];
+		$rules = [ 'page,page_size' => 'trim|integer','uid'=>'trim'];
 		$params = $this->check_param($rules);
+
+		if(!$params['uid']){
+			$params['uid'] = '';
+		}
 		$return_code = $this->is_uid($params['uid']);
 		if($return_code == -1){
 			$this->returnError('先登录',501);
