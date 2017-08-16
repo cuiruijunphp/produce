@@ -89,17 +89,6 @@ class Commons extends MY_Controller {
 		return $uuid;
 	}
 
-	public function test_get(){
-		// 按设置的规则检查参数
-
-		$rules = ['open_id,access_token,nick_name,type' => 'trim'];
-		$params = $this->check_param($rules,[],'post');
-
-		$access_token = $_GET['access_token'];
-		$params['accessToken'] = $access_token;
-
-		$this->return_data($params);
-	}
 
 	public function send_msg(){
 		$rules = ['uid,phone' => 'trim'];
@@ -120,6 +109,16 @@ class Commons extends MY_Controller {
 			exit;
 		}
 
+		//判断手机验证码是否失效
+		$this->load->model('sms_msg');
+		$phone_is_use = $this->sms_msg->get_one(['phone'=>$params['phone']]);
+		if($phone_is_use){
+			if($phone_is_use['expire_time'] > time()){
+				$this->returnError('验证码依然有效~');
+				exit;
+			}
+		}
+
 		$this->load->library('aliyun_sms');
 		$signName = '湘采连';
 		$templateCode = '111';
@@ -129,7 +128,6 @@ class Commons extends MY_Controller {
 		$templateParam = "{\"verfiry\":".$verfiry."}";
 
 		//写入数据库,返回结果
-		$this->load->model('sms_msg');
 		$res = $this->sms_msg->add([
 				'phone'=>$params['phone'],
 				'create_time'=>time(),
