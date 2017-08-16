@@ -61,7 +61,7 @@ class Commons extends MY_Controller {
 			if($insert_res){
 				$access_token_insert_data = [
 					'open_id' => $params['open_id'],
-					'uid' => $params['open_id'],
+					'uid' => $uid,
 					'create_time' => time(),
 					'expire_time' => time() + 60*60*24*30,
 					'accessToken' => $access_token,
@@ -73,13 +73,24 @@ class Commons extends MY_Controller {
 		$this->return_data($access_token_res);
 	}
 
-		//生成唯一uid
-		private function create_guid()
-		{
-			$charid = strtoupper(md5(uniqid(mt_rand(), true)));
-			$uuid = substr($charid, 0, 8) . '-' . substr($charid, 8, 4) . '-'
-					. substr($charid, 12, 4) . '-' . substr($charid, 16, 4) . '-'
-					. substr($charid, 20, 12);
-			return $uuid;
-		}
+	//生成唯一uid
+	private function create_guid()
+	{
+		$charid = strtoupper(md5(uniqid(mt_rand(), true)));
+		$uuid = substr($charid, 0, 8) . '-' . substr($charid, 8, 4) . '-'
+				. substr($charid, 12, 4) . '-' . substr($charid, 16, 4) . '-'
+				. substr($charid, 20, 12);
+		return $uuid;
+	}
+
+	public function test_get(){
+		// 按设置的规则检查参数
+		$rules = ['open_id,access_token,nick_name,type' => 'trim'];
+		$params = $this->check_param($rules,[],'post');
+
+		$access_token = $_GET['access_token'];
+		$params['accessToken'] = $access_token;
+
+		$this->return_data($params);
+	}
 }
