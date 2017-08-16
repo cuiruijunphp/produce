@@ -87,8 +87,14 @@ class Good extends MY_Controller {
 	public function add()
 	{
 		// 按设置的规则检查参数
-		$rules = ['good_id' => 'required','uid,num'=>'trim|integer'];
+		$rules = ['name,price,type_id,uid,stock' => 'required','desc'=>'trim|integer'];
 		$params = $this->check_param($rules,[],'post');
+
+        $user_info = $this->user->get_one(['uid'=>$params['uid']]);
+        if($user_info){
+            $params['shop_id'] = $user_info['id'];
+        }
+        unset($params['uid']);
 
         $res = $this->goods->add($params);
 
