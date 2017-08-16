@@ -1,8 +1,8 @@
 <?php
 
-ini_set("display_errors", "on");
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once APPPATH . 'thrid_party/aliyun_sdk/vendor/autoload.php';
+require_once APPPATH . 'third_party/aliyun_sdk/vendor/autoload.php';
 
 use Aliyun\Core\Config;
 use Aliyun\Core\Profile\DefaultProfile;
@@ -18,7 +18,7 @@ Config::load();
  *
  * @property \Aliyun\Core\DefaultAcsClient acsClient
  */
-class SmsDemo
+class AliyunSms
 {
 
     /**
@@ -43,8 +43,8 @@ class SmsDemo
         $endPointName = "cn-hangzhou";
 
         //access_key_id
-        $accessKeyId = '';
-        $accessKeySecret = '';
+        $accessKeyId = 'LTAIKh9op8l4itBd';
+        $accessKeySecret = 'mDYSyrboc4JVPVsFWUz7NXKaarIIzG';
 
         // 初始化用户Profile实例
         $profile = DefaultProfile::getProfile($region, $accessKeyId, $accessKeySecret);

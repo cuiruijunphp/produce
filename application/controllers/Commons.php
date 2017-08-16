@@ -91,8 +91,12 @@ class Commons extends MY_Controller {
 
 
 	public function send_msg(){
-		$rules = ['uid,phone' => 'trim'];
-		$params = $this->check_param($rules,[],'post');
+//        header('Content-Type: text/plain; charset=utf-8');
+
+		$rules = ['phone' => 'trim'];
+        $params = $this->check_param($rules,[],'post');
+        var_dump($params);
+
 
 		//判断该手机号是否在允许注册范围内
 		$phone_is_exist = 0;
@@ -119,13 +123,13 @@ class Commons extends MY_Controller {
 			}
 		}
 
-		$this->load->library('aliyun_sms');
+		$this->load->library('aliyunsms');
 		$signName = '湘联采';
 		$templateCode = 'SMS_85990047';
-//		$phoneNumbers = '18565616993';
 		$phoneNumbers = $params['phone'];
 		$verfiry = rand(1000,9999);
-		$templateParam = "{\"number\":".$verfiry."}";
+
+        $tmp = ['number'=>$verfiry];
 
 		//写入数据库,返回结果
 		$res = $this->sms_msg->add([
@@ -135,8 +139,8 @@ class Commons extends MY_Controller {
 				'text'=>$verfiry,
 		]);
 		if($res){
-			$result = $this->aliyun_sms->sendSms($signName, $templateCode, $phoneNumbers, $templateParam = null, $outId = null);
-			$this->return_data($result);
+//			$result = $this->aliyunsms->sendSms($signName, $templateCode, $phoneNumbers, $tmp);
+//			$this->return_data($result);
 		}
 	}
 }
