@@ -45,6 +45,7 @@ class Commons extends MY_Controller {
 		if($user_res){
 			//查询access_token过期时间
 			$access_token_res = $this->access_token->get_one($where,' expire_time desc');
+			//查询个人信息
 		}else{
 			//如果没有的话,就新建一个账户,然后写入表
 			$uid = $this->create_guid();
@@ -71,6 +72,10 @@ class Commons extends MY_Controller {
 			}
 			$access_token_res = $this->access_token->get_one($where,' expire_time desc');
 		}
+
+		$user_info = $this->user->get_one($where);
+		$access_token_res['nick_name'] = $user_info['nick_name'];
+		$access_token_res['type'] = $user_info['type'];
 		$this->return_data($access_token_res);
 	}
 
