@@ -63,8 +63,11 @@ class Good_cart extends MY_Controller {
 	public function add()
 	{
 		// 按设置的规则检查参数
-		$rules = ['uid,good_id' => 'required','num'=>'trim|integer'];
+		$rules = ['good_id' => 'required','uid,num'=>'trim|integer'];
 		$params = $this->check_param($rules,[],'post');
+		if(!$params['uid']){
+			$params['uid'] = '';
+		}
 		$return_code = $this->is_uid($params['uid']);
 		if($return_code == -1){
 			$this->returnError('先登录',501);

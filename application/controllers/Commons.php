@@ -53,6 +53,7 @@ class Commons extends MY_Controller {
 			if($type == 1){
 				$mobile = '';
 			}else{
+				//卖家的话，要发验证码
 				$mobile = 1;
 			}
 			$insert_res = $this->user->add(['open_id'=>$params['open_id'],'uid'=>$uid,'type' => $type,'mobile'=>$mobile,'nick_name'=>urldecode($params['nick_name'])]);
