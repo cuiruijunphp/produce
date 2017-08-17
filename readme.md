@@ -119,10 +119,7 @@ return:
                 "name": "商品名称",
                 "type_id": "1",
                 "shop_id": "15",
-                "img": [
-                    "http://www.pro.com/static/uploads/goods/15029520670.png",
-                    "http://www.pro.com/static/uploads/goods/15029520671.png"
-                ],
+                "img": "http://www.pro.com/static/uploads/goods/15029520670.png",
                 "price": "12",
                 "sale_price": null,
                 "stock": "100",
@@ -135,10 +132,7 @@ return:
                 "name": "商品名称",
                 "type_id": "1",
                 "shop_id": "15",
-                "img": [
-                    "http://www.pro.com15029416200.png",
-                    "http://www.pro.com15029416201.png"
-                ],
+                "img": "http://www.pro.com15029416200.png",
                 "price": "12",
                 "sale_price": null,
                 "stock": "100",
@@ -164,9 +158,7 @@ return:
                 "name": "鲈鱼",
                 "type_id": "2",
                 "shop_id": "1",
-                "img": [
-                    "http://www.pro.com/static/uploads/goods/1.png"
-                ],
+                "img": "http://www.pro.com/static/uploads/goods/1.png",
                 "price": "10.5",
                 "sale_price": "5",
                 "stock": "90",
@@ -179,9 +171,7 @@ return:
                 "name": "鸟肉",
                 "type_id": "1",
                 "shop_id": "1",
-                "img": [
-                    "http://www.pro.com/static/uploads/goods/1.png"
-                ],
+                "img": "http://www.pro.com/static/uploads/goods/1.png",
                 "price": "10.5",
                 "sale_price": "5",
                 "stock": "100",
@@ -194,9 +184,7 @@ return:
                 "name": "肉鸟",
                 "type_id": "1",
                 "shop_id": "1",
-                "img": [
-                    "http://www.pro.com/static/uploads/goods/1.png"
-                ],
+                "img": "http://www.pro.com/static/uploads/goods/1.png",
                 "price": "10.5",
                 "sale_price": "5",
                 "stock": "100",
@@ -209,9 +197,7 @@ return:
                 "name": "五花肉",
                 "type_id": "1",
                 "shop_id": "1",
-                "img": [
-                    "http://www.pro.com/static/uploads/goods/1.png"
-                ],
+                "img": "http://www.pro.com/static/uploads/goods/1.png",
                 "price": "10.5",
                 "sale_price": "5",
                 "stock": "100",
@@ -224,9 +210,7 @@ return:
                 "name": "前腿肉",
                 "type_id": "1",
                 "shop_id": "1",
-                "img": [
-                    "http://www.pro.com/static/uploads/goods/1.png"
-                ],
+                "img": "http://www.pro.com/static/uploads/goods/1.png",
                 "price": "10.5",
                 "sale_price": "5",
                 "stock": "100",
@@ -239,9 +223,7 @@ return:
                 "name": "精肉",
                 "type_id": "1",
                 "shop_id": "1",
-                "img": [
-                    "http://www.pro.com/static/uploads/goods/1.png"
-                ],
+                "img": "http://www.pro.com/static/uploads/goods/1.png",
                 "price": "10.5",
                 "sale_price": "5",
                 "stock": "100",
@@ -254,9 +236,7 @@ return:
                 "name": "精瘦肉",
                 "type_id": "1",
                 "shop_id": "1",
-                "img": [
-                    "http://www.pro.com/static/uploads/goods/1.png"
-                ],
+                "img": "http://www.pro.com/static/uploads/goods/1.png",
                 "price": "10.5",
                 "sale_price": "5",
                 "stock": "100",
@@ -269,9 +249,7 @@ return:
                 "name": "小肉",
                 "type_id": "1",
                 "shop_id": "1",
-                "img": [
-                    "http://www.pro.com/static/uploads/goods/1.png"
-                ],
+                "img": "http://www.pro.com/static/uploads/goods/1.png",
                 "price": "10.5",
                 "sale_price": "5",
                 "stock": "100",
@@ -284,9 +262,7 @@ return:
                 "name": "大肉",
                 "type_id": "1",
                 "shop_id": "1",
-                "img": [
-                    "http://www.pro.com/static/uploads/goods/1.png"
-                ],
+                "img": "http://www.pro.com/static/uploads/goods/1.png",
                 "price": "10.5",
                 "sale_price": "5",
                 "stock": "100",
@@ -299,9 +275,7 @@ return:
                 "name": "亚瑟",
                 "type_id": "1",
                 "shop_id": "1",
-                "img": [
-                    "http://www.pro.com/static/uploads/goods/1.png"
-                ],
+                "img": "http://www.pro.com/static/uploads/goods/1.png",
                 "price": "10.5",
                 "sale_price": "5",
                 "stock": "100",
@@ -314,9 +288,7 @@ return:
                 "name": "关羽",
                 "type_id": "1",
                 "shop_id": "1",
-                "img": [
-                    "http://www.pro.com/static/uploads/goods/1.png"
-                ],
+                "img": "http://www.pro.com/static/uploads/goods/1.png",
                 "price": "10.5",
                 "sale_price": "5",
                 "stock": "100",
@@ -329,9 +301,7 @@ return:
                 "name": "张飞",
                 "type_id": "1",
                 "shop_id": "1",
-                "img": [
-                    "http://www.pro.com/static/uploads/goods/1.png"
-                ],
+                "img": "http://www.pro.com/static/uploads/goods/1.png",
                 "price": "10.5",
                 "sale_price": "5",
                 "stock": "100",
@@ -371,25 +341,25 @@ param:
 	 id:1    //id
 
 return:
-
 {
     "code": "200",
     "msg": "",
     "data": {
-        "id": "44",
-        "name": "商品名称",
-        "type_id": "1",
-        "shop_id": "15",
+        "id": "38",
+        "name": "大鸟",
+        "type_id": "5",
+        "shop_id": "1",
         "img": [
-            "http://www.pro.com/static/uploads/goods/15029520670.png",
-            "http://www.pro.com/static/uploads/goods/15029520671.png"
+            "http://pro.cuithink.com//static/uploads/goods/1.png",
+            "http://pro.cuithink.com//static/uploads/type/5.png"
         ],
-        "price": "12",
-        "sale_price": null,
-        "stock": "100",
-        "desc": "我是小小鸟",
-        "sort": "13",
-        "is_show": "1"
+        "price": "10.5",
+        "sale_price": "5",
+        "stock": "95",
+        "desc": "大鸟",
+        "sort": "1",
+        "is_show": "1",
+        "img_thumb": "http://pro.cuithink.com//static/uploads/goods/1.png"
     }
 }
 
@@ -476,4 +446,35 @@ return:
     "code": "200",
     "msg": 200,
     "data": "操作成功"
+}
+
+## 3.用户相关 ##
+
+### 3.1 用户个人信息 ###
+
+3.1.1 根据商家uid获取商家个人信息详情
+
+url:http://pro.cuithink.com/custom/get_user_by_uid
+
+type:get 
+
+param:
+	 shop_uid:'eexxx',     //商家uid
+
+return:
+
+{
+    "code": "200",
+    "msg": "",
+    "data": {
+        "uid": "344F89B4-3B17-DBA0-2829-826C99B514B0",
+        "username": "",
+        "open_id": "oRv1n1rzmudnkE3ZV58PW6sBMd_U",
+        "password": null,
+        "nick_name": "明天",
+        "type": "0",
+        "mobile": "1",
+        "id": "21",
+        "head_img_url": "http://wx.qlogo.cn/mmopen/9pHIguqXESn8v78UQibl6z9petJ8JKHVULcnkrrHK4ndXg8VhAAOK0REDialGX8u3dZjsGcd95xlL0PxVmyTemiaUIazBxCYaga/0"
+    }
 }
