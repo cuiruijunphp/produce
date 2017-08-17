@@ -95,8 +95,6 @@ class Commons extends MY_Controller {
 
 		$rules = ['phone' => 'trim'];
         $params = $this->check_param($rules,[],'post');
-		var_dump($params);
-		exit;
 
 		//判断该手机号是否在允许注册范围内
 		$phone_is_exist = 0;
@@ -115,7 +113,7 @@ class Commons extends MY_Controller {
 
 		//判断手机验证码是否失效
 		$this->load->model('sms_msg');
-		$phone_is_use = $this->sms_msg->get_one(['phone'=>$params['phone']]);
+		$phone_is_use = $this->sms_msg->get_one(['phone'=>$params['phone']],' expire_time desc');
 		if($phone_is_use){
 			if($phone_is_use['expire_time'] > time()){
 				$this->returnError('验证码依然有效~');
@@ -140,7 +138,36 @@ class Commons extends MY_Controller {
 		]);
 		if($res){
 //			$result = $this->aliyunsms->sendSms($signName, $templateCode, $phoneNumbers, $tmp);
-//			$this->return_data($result);
+//			if($result){
+//				$this->return_data(['code'=>1]);
+//			}else{
+//				$this->return_data(['code'=>-1]);
+//			}
+		}else{
+			$this->return_data(['code'=>-2]);
 		}
+	}
+
+	/*
+	 * 验证码验证
+	 */
+	public function verify_code(){
+		$rules = ['phone,code' => 'required|trim'];
+		$params = $this->check_param($rules,[],'post');
+
+		$this->load->model('sms_msg');
+		$phone_is_use = $this->sms_msg->get_one(['phone'=>$params['phone']],' expire_time desc');
+		if($phone_is_use){
+			if($phone_is_use['expire_time'] > time()){
+				if($params['code'] == $phone_is_use['text']){
+					$this->return_data(['code'=>1]);
+				}else{
+					$this->returnError('验证码错误');
+				}
+			}else{
+				$this->returnError('验证码已经过期');
+			}
+		}
+
 	}
 }

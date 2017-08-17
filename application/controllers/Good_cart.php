@@ -59,6 +59,14 @@ class Good_cart extends MY_Controller {
 		}
 
 		$res = $this->cart->get_cart_list($where,$page_size,$offset);
+		if($res){
+			foreach($res as $kk=>&$vv){
+				if($vv['img']){
+					$img_list = explode(',',trim($vv['img'],','));
+					$vv['img'] = APP_URL.$img_list[0];
+				}
+			}
+		}
 		$count = $this->cart->get_cart_total($where);
         $this->return_data(['result'=>$res,'total'=>$count]);
 	}
