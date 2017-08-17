@@ -56,8 +56,8 @@ class Good_cart extends MY_Controller {
 			$where['shop_id'] = $params['id'];
 		}
 
-		$res = $this->cart->get_list($where,$page_size,$offset,' sort desc');
-		$count = $this->cart->get_total();
+		$res = $this->cart->get_list($where,$page_size,$offset);
+		$count = $this->cart->get_total($where);
         $this->return_data(['result'=>$res,'total'=>$count]);
 	}
 
@@ -86,7 +86,6 @@ class Good_cart extends MY_Controller {
 
 		//先判断是否是买家，是买家才能进行购买
 
-
 		//插入商家id
 		$good_info = $this->goods->read($params['good_id']);
 		if($good_info){
@@ -103,7 +102,7 @@ class Good_cart extends MY_Controller {
 			'shop_id' => $shop_id
 		];
 
-        $res = $this->goods->add($params);
+        $res = $this->cart->add($params);
 
 		if($res){
 			//减少库存
