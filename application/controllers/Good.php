@@ -54,10 +54,11 @@ class Good extends MY_Controller {
             foreach($res as $k=>&$v){
                 if($v['img']){
                     $img_list = explode(',',trim($v['img'],','));
-                    foreach($img_list as $kk=>&$vv){
-                        $vv = APP_URL.$vv;
-                    }
-                    $v['img'] = $img_list;
+                    $v['img'] = APP_URL.$img_list[0];
+//                    foreach($img_list as $kk=>&$vv){
+//                        $vv = APP_URL.$vv;
+//                    }
+//                    $v['img'] = $img_list;
                 }
             }
         }
