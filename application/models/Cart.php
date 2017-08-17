@@ -9,4 +9,9 @@ class Cart extends MY_Model {
         parent::__construct();
         $this->_table = strtolower(__CLASS__);
     }
+
+    //获取订单详细列表
+    public function get_cart($uid){
+
+    }
 }

@@ -200,7 +200,7 @@ return:
 
 url:http://pro.cuithink.com/good_cart/cart_list
 
-type:post 
+type:get 
 
 param:
 	 uid:'agagag',    //买家/卖家 uid
@@ -208,5 +208,25 @@ param:
 return:
 
 {
-    //暂定，哈哈哈
+    "code": "200",
+    "msg": "",
+    "data": {
+        "result": [
+            {
+                "id": "3",
+                "uid": "EB565340-E3D1-2BCA-43A8-8D1F389F15F4",
+                "good_id": "30",
+                "num": "2",
+                "create_time": "2017-08-17 10:02:10"
+            },
+            {
+                "id": "4",
+                "uid": "EB565340-E3D1-2BCA-43A8-8D1F389F15F4",
+                "good_id": "30",
+                "num": "2",
+                "create_time": "2017-08-17 10:02:23"
+            }
+        ],
+        "total": 2
+    }
 }

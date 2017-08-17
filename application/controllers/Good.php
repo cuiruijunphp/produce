@@ -87,14 +87,49 @@ class Good extends MY_Controller {
 	public function add()
 	{
 		// 按设置的规则检查参数
-		$rules = ['name,price,type_id,uid,stock' => 'required','desc'=>'trim'];
+		$rules = ['name,price,type_id,uid,stock' => 'required','desc,img'=>'trim'];
 		$params = $this->check_param($rules,[],'post');
+
+
+        //载入所需文件上传类库
+        $this->load->library('upload');
+
+        //配置上传参数
+        $upload_config = array(
+            'upload_path' => './static/uploads/goods/',
+            'allowed_types' => 'jpg|png|gif',
+//            'max_size' => '500',
+//            'max_width' => '1024',
+//            'max_height' => '768',
+        );
+        $this->upload->initialize($upload_config);
+        //循环处理上传文件
+//        $data_res = $this->upload->do_upload('img');
+        //循环处理上传文件
+        $file = $_FILES;
+        $count = count($_FILES['img']['name']);
+        $img_url = '';
+        for($i=0;$i<$count;$i++){
+            $type_name = explode('.',$file['img']['name'][$i]);
+
+            $file_name_save = time().$i.'.'.$type_name[count($type_name)-1];
+            $_FILES['img']['name'] = $file_name_save;
+            $_FILES['img']['type'] = $file['img']['type'][$i];
+            $_FILES['img']['tmp_name'] = $file['img']['tmp_name'][$i];
+            $_FILES['img']['error'] = $file['img']['error'][$i];
+            $_FILES['img']['size'] = $file['img']['size'][$i];
+            $res_data = $this->upload->do_upload('img');
+            if($res_data){
+                $img_url .= $file_name_save.',';
+            }
+        }
 
         $user_info = $this->user->get_one(['uid'=>$params['uid']]);
         if($user_info){
             $params['shop_id'] = $user_info['id'];
         }
         unset($params['uid']);
+        $params['img'] = $img_url;
 
         $res = $this->goods->add($params);
 
@@ -121,5 +156,16 @@ class Good extends MY_Controller {
         }else{
             $this->returnError('操作失败',500);
         }
+    }
+
+
+    //生成唯一文件名
+    private function create_name()
+    {
+        $charid = strtoupper(md5(uniqid(mt_rand(), true)));
+        $uuid = substr($charid, 0, 8) . '-' . substr($charid, 8, 4) . '-'
+            . substr($charid, 12, 4) . '-' . substr($charid, 16, 4) . '-'
+            . substr($charid, 20, 12);
+        return $uuid;
     }
 }
