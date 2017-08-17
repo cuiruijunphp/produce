@@ -86,6 +86,7 @@ class Good extends MY_Controller {
                 $res['img'] = $img_list;
             }
         }
+        $res['img_thumb'] = $res['img'] ? $res['img'][0] : '';
 
         $this->return_data($res);
     }
