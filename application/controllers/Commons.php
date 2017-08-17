@@ -35,7 +35,7 @@ class Commons extends MY_Controller {
 	//查看是否有注册用户
 	public  function open_id_is_exist(){
 		// 按设置的规则检查参数
-		$rules = ['open_id,access_token,nick_name,type' => 'trim'];
+		$rules = ['open_id,access_token,nick_name,type,head_img_url' => 'trim'];
 		$params = $this->check_param($rules,[],'post');
 
 		$access_token = $params['access_token'];
@@ -57,7 +57,7 @@ class Commons extends MY_Controller {
 				//卖家的话，要发验证码
 				$mobile = 1;
 			}
-			$insert_res = $this->user->add(['open_id'=>$params['open_id'],'uid'=>$uid,'type' => $type,'mobile'=>$mobile,'nick_name'=>urldecode($params['nick_name'])]);
+			$insert_res = $this->user->add(['open_id'=>$params['open_id'],'uid'=>$uid,'type' => $type,'mobile'=>$mobile,'nick_name'=>urldecode($params['nick_name']),'head_img_url'=>$params['head_img_url']]);
 
 			//增加access_token
 			if($insert_res){
