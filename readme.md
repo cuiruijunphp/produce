@@ -1,4 +1,4 @@
-# 接口文档 #
+ # 接口文档 #
 ## 1.公共模块 ##
 ### 1.1 首页banner图 ###
 url:http://pro.cuithink.com/commons/banner_list
@@ -427,7 +427,7 @@ return:
 #### 2.2.6 商品添加 ####
 
 
-url:http://pro.cuithink.com/good_cart/add
+url:http://pro.cuithink.com/good/add
 
 type:post 
 
@@ -439,6 +439,7 @@ param:
 	 stock:100,      //库存
 	 desc:商品描述   //商品描述
 	 img: 可以上传多个图片        //图片上传
+	 id:1          //商品id,编辑时使用
 
 return:
 
