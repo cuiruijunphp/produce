@@ -98,7 +98,7 @@ class Good extends MY_Controller {
 	public function add()
 	{
 		// 按设置的规则检查参数
-		$rules = ['name,price,type_id,uid,stock' => 'required','desc,img'=>'trim'];
+		$rules = ['name,price,type_id,uid,stock' => 'trim','desc,img,id'=>'trim'];
 		$params = $this->check_param($rules,[],'post');
 
 
@@ -144,7 +144,15 @@ class Good extends MY_Controller {
         }
         unset($params['uid']);
 
-        $res = $this->goods->add($params);
+        if($params['id']){
+            //更新
+            $id = $params['id'];
+            unset($params['id']);
+            $res = $this->goods->update($id,$params);
+        }else{
+            $res = $this->goods->add($params);
+        }
+
 
 		if($res){
 			$this->return_data('操作成功',200);
