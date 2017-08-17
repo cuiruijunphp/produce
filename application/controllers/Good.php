@@ -100,6 +100,9 @@ class Good extends MY_Controller {
 		// 按设置的规则检查参数
 		$rules = ['name,price,type_id,uid,stock' => 'trim','desc,img,id'=>'trim'];
 		$params = $this->check_param($rules,[],'post');
+        var_dump($params);
+        var_dump($_FILES);
+        exit;
 
 
         //载入所需文件上传类库
