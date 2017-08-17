@@ -51,13 +51,15 @@ class Good_cart extends MY_Controller {
 
 		$offset = ($page-1)*$page_size;
 		if($user_info['type'] == 1){
-			$where['uid'] = $params['uid'];
+			$where['a.uid'] = $params['uid'];
 		}else{
-			$where['shop_id'] = $params['id'];
+			//如果是卖家，取所有shop_id = 卖家id的订单
+			$shop_id = $user_info['id'];
+			$where['u.id'] = $shop_id;
 		}
 
-		$res = $this->cart->get_list($where,$page_size,$offset);
-		$count = $this->cart->get_total($where);
+		$res = $this->cart->get_cart_list($where,$page_size,$offset);
+		$count = $this->cart->get_cart_total($where);
         $this->return_data(['result'=>$res,'total'=>$count]);
 	}
 
