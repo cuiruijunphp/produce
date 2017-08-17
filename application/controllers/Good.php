@@ -48,16 +48,16 @@ class Good extends MY_Controller {
 
 		$offset = ($page-1)*$page_size;
         $where['is_show'] = 1;
-		$res = $this->goods->get_list($where,$page_size,$offset,' sort desc');
+            $res = $this->goods->get_list($where,$page_size,$offset,' sort desc');
         if($res){
             $img_array = [];
             foreach($res as $k=>&$v){
                 if($v['img']){
-                    $v['img'] = APP_URL.'/'.$v['img'];
-//                    $img_list = explode(',',trim($v['img'],','));
-//                    for($j=0;$j<count($img_list);$j++){
-//                        $v['img'][$j] = APP_URL.$img_list[$j];
-//                    }
+                    $img_list = explode(',',trim($v['img'],','));
+                    foreach($img_list as $kk=>&$vv){
+                        $vv = APP_URL.$vv;
+                    }
+                    $v['img'] = $img_list;
                 }
             }
         }
@@ -79,7 +79,11 @@ class Good extends MY_Controller {
         $res = $this->goods->read($params['id']);
         if($res){
             if($res['img']){
-                $res['img'] = APP_URL.$res['img'];
+                $img_list = explode(',',trim($res['img'],','));
+                foreach($img_list as $kk=>&$vv){
+                    $vv = APP_URL.$vv;
+                }
+                $res['img'] = $img_list;
             }
         }
 
@@ -126,7 +130,7 @@ class Good extends MY_Controller {
                 $_FILES['img']['size'] = $file['img']['size'][$i];
                 $res_data = $this->upload->do_upload('img');
                 if($res_data){
-                    $img_url .= $file_name_save.',';
+                    $img_url .= '/static/uploads/goods/'.$file_name_save.',';
                 }
             }
             $params['img'] = $img_url;
@@ -163,16 +167,5 @@ class Good extends MY_Controller {
         }else{
             $this->returnError('操作失败',500);
         }
-    }
-
-
-    //生成唯一文件名
-    private function create_name()
-    {
-        $charid = strtoupper(md5(uniqid(mt_rand(), true)));
-        $uuid = substr($charid, 0, 8) . '-' . substr($charid, 8, 4) . '-'
-            . substr($charid, 12, 4) . '-' . substr($charid, 16, 4) . '-'
-            . substr($charid, 20, 12);
-        return $uuid;
     }
 }
