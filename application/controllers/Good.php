@@ -50,9 +50,13 @@ class Good extends MY_Controller {
         $where['is_show'] = 1;
 		$res = $this->goods->get_list($where,$page_size,$offset,' sort desc');
         if($res){
+            $img_array = [];
             foreach($res as $k=>&$v){
                 if($v['img']){
-                    $v['img'] = APP_URL.$v['img'];
+                    $img_list = explode(',',trim($v['img'],','));
+                    for($j=0;$j<count($img_list);$j++){
+                        $v['img'][$j] = APP_URL.$img_list[$j];
+                    }
                 }
             }
         }

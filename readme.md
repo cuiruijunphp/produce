@@ -213,20 +213,49 @@ return:
     "data": {
         "result": [
             {
-                "id": "3",
-                "uid": "EB565340-E3D1-2BCA-43A8-8D1F389F15F4",
-                "good_id": "30",
                 "num": "2",
-                "create_time": "2017-08-17 10:02:10"
+                "create_time": "2017-08-17 10:02:10",
+                "uid": "EB565340-E3D1-2BCA-43A8-8D1F389F15F4",
+                "name": "鲈鱼",
+                "img": "/static/uploads/goods/1.png",
+                "price": "10.5",
+                "desc": "鲈鱼"
             },
             {
-                "id": "4",
-                "uid": "EB565340-E3D1-2BCA-43A8-8D1F389F15F4",
-                "good_id": "30",
                 "num": "2",
-                "create_time": "2017-08-17 10:02:23"
+                "create_time": "2017-08-17 10:02:23",
+                "uid": "EB565340-E3D1-2BCA-43A8-8D1F389F15F4",
+                "name": "鲈鱼",
+                "img": "/static/uploads/goods/1.png",
+                "price": "10.5",
+                "desc": "鲈鱼"
             }
         ],
         "total": 2
     }
+}
+
+
+#### 2.2.6 商品添加 ####
+
+
+url:http://pro.cuithink.com/good_cart/add
+
+type:post 
+
+param:
+	 name:'荷兰土豆',     //商品名称
+	 price:10.5,        //价格
+	 type_id:2         //分类id
+	 uid:'agagag',    //卖家家uid
+	 stock:100,      //库存
+	 desc:商品描述   //商品描述
+	 img:          //图片上传
+
+return:
+
+{
+    "code": "200",
+    "msg": 200,
+    "data": "操作成功"
 }
