@@ -115,17 +115,232 @@ return:
     "data": {
         "result": [
             {
-                "id": "2",
-                "name": "蔬菜",
-                "sort": "2"
+                "id": "44",
+                "name": "商品名称",
+                "type_id": "1",
+                "shop_id": "15",
+                "img": [
+                    "http://www.pro.com/static/uploads/goods/15029520670.png",
+                    "http://www.pro.com/static/uploads/goods/15029520671.png"
+                ],
+                "price": "12",
+                "sale_price": null,
+                "stock": "100",
+                "desc": "我是小小鸟",
+                "sort": "13",
+                "is_show": "1"
             },
             {
-                "id": "1",
-                "name": "农产品
-                "sort": "1"
+                "id": "40",
+                "name": "商品名称",
+                "type_id": "1",
+                "shop_id": "15",
+                "img": [
+                    "http://www.pro.com15029416200.png",
+                    "http://www.pro.com15029416201.png"
+                ],
+                "price": "12",
+                "sale_price": null,
+                "stock": "100",
+                "desc": "我是小小鸟",
+                "sort": "10",
+                "is_show": "1"
+            },
+            {
+                "id": "39",
+                "name": "商品名称",
+                "type_id": "1",
+                "shop_id": "15",
+                "img": null,
+                "price": "12",
+                "sale_price": null,
+                "stock": "100",
+                "desc": "我是小小鸟",
+                "sort": "9",
+                "is_show": "1"
+            },
+            {
+                "id": "30",
+                "name": "鲈鱼",
+                "type_id": "2",
+                "shop_id": "1",
+                "img": [
+                    "http://www.pro.com/static/uploads/goods/1.png"
+                ],
+                "price": "10.5",
+                "sale_price": "5",
+                "stock": "90",
+                "desc": "鲈鱼",
+                "sort": "2",
+                "is_show": "1"
+            },
+            {
+                "id": "6",
+                "name": "鸟肉",
+                "type_id": "1",
+                "shop_id": "1",
+                "img": [
+                    "http://www.pro.com/static/uploads/goods/1.png"
+                ],
+                "price": "10.5",
+                "sale_price": "5",
+                "stock": "100",
+                "desc": "鸟肉",
+                "sort": "1",
+                "is_show": "1"
+            },
+            {
+                "id": "7",
+                "name": "肉鸟",
+                "type_id": "1",
+                "shop_id": "1",
+                "img": [
+                    "http://www.pro.com/static/uploads/goods/1.png"
+                ],
+                "price": "10.5",
+                "sale_price": "5",
+                "stock": "100",
+                "desc": "肉鸟",
+                "sort": "1",
+                "is_show": "1"
+            },
+            {
+                "id": "8",
+                "name": "五花肉",
+                "type_id": "1",
+                "shop_id": "1",
+                "img": [
+                    "http://www.pro.com/static/uploads/goods/1.png"
+                ],
+                "price": "10.5",
+                "sale_price": "5",
+                "stock": "100",
+                "desc": "五花肉",
+                "sort": "1",
+                "is_show": "1"
+            },
+            {
+                "id": "9",
+                "name": "前腿肉",
+                "type_id": "1",
+                "shop_id": "1",
+                "img": [
+                    "http://www.pro.com/static/uploads/goods/1.png"
+                ],
+                "price": "10.5",
+                "sale_price": "5",
+                "stock": "100",
+                "desc": "前腿肉",
+                "sort": "1",
+                "is_show": "1"
+            },
+            {
+                "id": "10",
+                "name": "精肉",
+                "type_id": "1",
+                "shop_id": "1",
+                "img": [
+                    "http://www.pro.com/static/uploads/goods/1.png"
+                ],
+                "price": "10.5",
+                "sale_price": "5",
+                "stock": "100",
+                "desc": "精肉",
+                "sort": "1",
+                "is_show": "1"
+            },
+            {
+                "id": "11",
+                "name": "精瘦肉",
+                "type_id": "1",
+                "shop_id": "1",
+                "img": [
+                    "http://www.pro.com/static/uploads/goods/1.png"
+                ],
+                "price": "10.5",
+                "sale_price": "5",
+                "stock": "100",
+                "desc": "精瘦肉",
+                "sort": "1",
+                "is_show": "1"
+            },
+            {
+                "id": "12",
+                "name": "小肉",
+                "type_id": "1",
+                "shop_id": "1",
+                "img": [
+                    "http://www.pro.com/static/uploads/goods/1.png"
+                ],
+                "price": "10.5",
+                "sale_price": "5",
+                "stock": "100",
+                "desc": "小肉",
+                "sort": "1",
+                "is_show": "1"
+            },
+            {
+                "id": "13",
+                "name": "大肉",
+                "type_id": "1",
+                "shop_id": "1",
+                "img": [
+                    "http://www.pro.com/static/uploads/goods/1.png"
+                ],
+                "price": "10.5",
+                "sale_price": "5",
+                "stock": "100",
+                "desc": "大肉",
+                "sort": "1",
+                "is_show": "1"
+            },
+            {
+                "id": "14",
+                "name": "亚瑟",
+                "type_id": "1",
+                "shop_id": "1",
+                "img": [
+                    "http://www.pro.com/static/uploads/goods/1.png"
+                ],
+                "price": "10.5",
+                "sale_price": "5",
+                "stock": "100",
+                "desc": "亚瑟",
+                "sort": "1",
+                "is_show": "1"
+            },
+            {
+                "id": "15",
+                "name": "关羽",
+                "type_id": "1",
+                "shop_id": "1",
+                "img": [
+                    "http://www.pro.com/static/uploads/goods/1.png"
+                ],
+                "price": "10.5",
+                "sale_price": "5",
+                "stock": "100",
+                "desc": "关羽",
+                "sort": "1",
+                "is_show": "1"
+            },
+            {
+                "id": "16",
+                "name": "张飞",
+                "type_id": "1",
+                "shop_id": "1",
+                "img": [
+                    "http://www.pro.com/static/uploads/goods/1.png"
+                ],
+                "price": "10.5",
+                "sale_price": "5",
+                "stock": "100",
+                "desc": "张飞",
+                "sort": "1",
+                "is_show": "1"
             }
         ],
-        "total": 2
+        "total": 27
     }
 }
 
@@ -161,16 +376,19 @@ return:
     "code": "200",
     "msg": "",
     "data": {
-        "id": "1",
-        "name": "南瓜",
+        "id": "44",
+        "name": "商品名称",
         "type_id": "1",
-        "shop_id": "1",
-        "img": "http://www.pro.com/static/uploads/1.png",
-        "price": "10.5",
-        "sale_price": "5",
+        "shop_id": "15",
+        "img": [
+            "http://www.pro.com/static/uploads/goods/15029520670.png",
+            "http://www.pro.com/static/uploads/goods/15029520671.png"
+        ],
+        "price": "12",
+        "sale_price": null,
         "stock": "100",
-        "desc": "该产品很牛逼",
-        "sort": "1",
+        "desc": "我是小小鸟",
+        "sort": "13",
         "is_show": "1"
     }
 }
@@ -250,7 +468,7 @@ param:
 	 uid:'agagag',    //卖家家uid
 	 stock:100,      //库存
 	 desc:商品描述   //商品描述
-	 img:          //图片上传
+	 img: 可以上传多个图片        //图片上传
 
 return:
 
