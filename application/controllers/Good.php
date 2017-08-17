@@ -53,10 +53,11 @@ class Good extends MY_Controller {
             $img_array = [];
             foreach($res as $k=>&$v){
                 if($v['img']){
-                    $img_list = explode(',',trim($v['img'],','));
-                    for($j=0;$j<count($img_list);$j++){
-                        $v['img'][$j] = APP_URL.$img_list[$j];
-                    }
+                    $v['img'] = APP_URL.'/'.$v['img'];
+//                    $img_list = explode(',',trim($v['img'],','));
+//                    for($j=0;$j<count($img_list);$j++){
+//                        $v['img'][$j] = APP_URL.$img_list[$j];
+//                    }
                 }
             }
         }
@@ -111,21 +112,24 @@ class Good extends MY_Controller {
 //        $data_res = $this->upload->do_upload('img');
         //循环处理上传文件
         $file = $_FILES;
-        $count = count($_FILES['img']['name']);
-        $img_url = '';
-        for($i=0;$i<$count;$i++){
-            $type_name = explode('.',$file['img']['name'][$i]);
+        if($file){
+            $count = count($_FILES['img']['name']);
+            $img_url = '';
+            for($i=0;$i<$count;$i++){
+                $type_name = explode('.',$file['img']['name'][$i]);
 
-            $file_name_save = time().$i.'.'.$type_name[count($type_name)-1];
-            $_FILES['img']['name'] = $file_name_save;
-            $_FILES['img']['type'] = $file['img']['type'][$i];
-            $_FILES['img']['tmp_name'] = $file['img']['tmp_name'][$i];
-            $_FILES['img']['error'] = $file['img']['error'][$i];
-            $_FILES['img']['size'] = $file['img']['size'][$i];
-            $res_data = $this->upload->do_upload('img');
-            if($res_data){
-                $img_url .= $file_name_save.',';
+                $file_name_save = time().$i.'.'.$type_name[count($type_name)-1];
+                $_FILES['img']['name'] = $file_name_save;
+                $_FILES['img']['type'] = $file['img']['type'][$i];
+                $_FILES['img']['tmp_name'] = $file['img']['tmp_name'][$i];
+                $_FILES['img']['error'] = $file['img']['error'][$i];
+                $_FILES['img']['size'] = $file['img']['size'][$i];
+                $res_data = $this->upload->do_upload('img');
+                if($res_data){
+                    $img_url .= $file_name_save.',';
+                }
             }
+            $params['img'] = $img_url;
         }
 
         $user_info = $this->user->get_one(['uid'=>$params['uid']]);
@@ -133,7 +137,6 @@ class Good extends MY_Controller {
             $params['shop_id'] = $user_info['id'];
         }
         unset($params['uid']);
-        $params['img'] = $img_url;
 
         $res = $this->goods->add($params);
 
