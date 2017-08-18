@@ -121,7 +121,7 @@ class Good extends MY_Controller {
             $name = time().$i.'.'.$type;
             $content = rtrim($img_str[2*$i+1],'"');
             $content = rtrim($content,'\\');
-            file_put_contents('./static/uploads/goods/'.$name,$content);
+            file_put_contents('./static/uploads/goods/'.$name,base64_decode($content));
         }
 
 
