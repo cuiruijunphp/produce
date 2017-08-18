@@ -40,11 +40,12 @@ class Commons extends MY_Controller {
 
 		$access_token = $params['access_token'];
 		$where['open_id'] = $params['open_id'];
+		$where['type'] = $params['type'];
 		//查看是否已经注册
 		$user_res = $this->user->get_one($where);
 		if($user_res){
 			//查询access_token过期时间
-			$access_token_res = $this->access_token->get_one($where,' expire_time desc');
+			$access_token_res = $this->access_token->get_one(['uid'=>$user_res['uid']],' expire_time desc');
 			//查询个人信息
 		}else{
 			//如果没有的话,就新建一个账户,然后写入表
