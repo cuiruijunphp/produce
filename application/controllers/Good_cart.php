@@ -95,6 +95,12 @@ class Good_cart extends MY_Controller {
 		}
 
 		//先判断是否是买家，是买家才能进行购买
+        $user_info = $this->user->get_one(['uid'=>$params['uid']]);
+        if($user_info){
+            if($user_info['type'] == 2){
+                $this->returnError('只有买家才能进行购买~');
+            }
+        }
 
 		//插入商家id
 		$good_info = $this->goods->read($params['good_id']);
