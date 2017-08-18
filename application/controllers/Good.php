@@ -111,7 +111,12 @@ class Good extends MY_Controller {
         $img_tmp_1 = rtrim($img_tmp,']"');
 
         $img_str = explode(',',$img_tmp_1);
-        echo count($img_str);
+        $count = count($img_str);
+        for($i=0;$i<$count/2;$i++){
+            $type = 'jpg';
+            $name = time().$i.$type;
+            file_put_contents('./static/uploads/goods/'.$name,$img_str[2*$i-1]);
+        }
 
 
         if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $_POST['img'], $result)){
