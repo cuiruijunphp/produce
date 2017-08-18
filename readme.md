@@ -50,7 +50,11 @@ url:http://pro.cuithink.com/commons/verify_code
 
 type:post 
 
-param: phone:18565616993  //手机号
+param: 
+
+   phone:18565616993  //手机号
+   code：1234 //四位验证码
+  
 
 return:
 
@@ -58,7 +62,7 @@ return:
     "code": "200",
     "msg": "",
     "data": {
-        'code':1 //1-成功， -1：插入数据库失败  -2发送失败
+        'code':1 //1-成功
     }
 }
 
