@@ -78,6 +78,7 @@ class Good extends MY_Controller {
         $params = $this->check_param($rules);
 
         $res = $this->goods->get_good_detail($params['id']);
+        $res = $res[0];
 
 //        $res = $this->goods->read($params['id']);
         if($res){
