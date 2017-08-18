@@ -106,10 +106,10 @@ class Good extends MY_Controller {
         var_dump($_POST['img']);
 
 
-        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $params['img'], $result)){
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $_POST['img'], $result)){
             $type = $result[2];
             $new_file = "./static/uploads/goods/test.{$type}";
-            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $params['img'])))){
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $_POST['img'])))){
                 echo '新文件保存成功：', $new_file;
             }
         }else{
