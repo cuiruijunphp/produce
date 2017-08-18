@@ -103,76 +103,65 @@ class Good extends MY_Controller {
 		$rules = ['name,price,type_id,uid,stock' => 'trim','desc,img,id'=>'trim'];
 		$params = $this->check_param($rules,[],'post');
 
-        var_dump($_POST['img']);
-        echo PHP_EOL;
-
         $img = $_POST['img'];
-        $img_tmp = ltrim($img,'"[');
-        $img_tmp_1 = rtrim($img_tmp,']"');
+        if($img){
+            $img_tmp = ltrim($img,'"[');
+            $img_tmp_1 = rtrim($img_tmp,']"');
 
-        $img_str = explode(',',$img_tmp_1);
-        $count = count($img_str);
-        for($i=0;$i<$count/2;$i++){
-            $type = 'txt';
-            if (preg_match('/(data:\s*image\/(\w+);base64)/', $img_str[2*$i], $result)){
-                $type = $result[2];
-            }
-            var_dump($img_str[2*$i]);
-            $name = time().$i.'.'.$type;
-            $content = rtrim($img_str[2*$i+1],'"');
-            $content = rtrim($content,'\\');
-            file_put_contents('./static/uploads/goods/'.$name,base64_decode($content));
-        }
-
-
-        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $_POST['img'], $result)){
-            $type = $result[2];
-            $new_file = "./static/uploads/goods/test.{$type}";
-            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $_POST['img'])))){
-                echo '新文件保存成功：', $new_file;
-            }
-        }else{
-            echo '11111111111';
-        }
-
-        exit;
-
-
-        //载入所需文件上传类库
-        $this->load->library('upload');
-
-        //配置上传参数
-        $upload_config = array(
-            'upload_path' => './static/uploads/goods/',
-            'allowed_types' => 'jpg|png|gif',
-//            'max_size' => '500',
-//            'max_width' => '1024',
-//            'max_height' => '768',
-        );
-        $this->upload->initialize($upload_config);
-        //循环处理上传文件
-//        $data_res = $this->upload->do_upload('img');
-        //循环处理上传文件
-        $file = $_FILES;
-        if($file){
-            $count = count($_FILES['img']['name']);
+            $img_str = explode(',',$img_tmp_1);
+            $count = count($img_str);
             $img_url = '';
-            for($i=0;$i<$count;$i++){
-                $type_name = explode('.',$file['img']['name'][$i]);
-
-                $file_name_save = time().$i.'.'.$type_name[count($type_name)-1];
-                $_FILES['img']['name'] = $file_name_save;
-                $_FILES['img']['type'] = $file['img']['type'][$i];
-                $_FILES['img']['tmp_name'] = $file['img']['tmp_name'][$i];
-                $_FILES['img']['error'] = $file['img']['error'][$i];
-                $_FILES['img']['size'] = $file['img']['size'][$i];
-                $res_data = $this->upload->do_upload('img');
-                if($res_data){
-                    $img_url .= '/static/uploads/goods/'.$file_name_save.',';
+            for($i=0;$i<$count/2;$i++){
+                $type = 'txt';
+                if (preg_match('/(data:\s*image\/(\w+);base64)/', $img_str[2*$i], $result)){
+                    $type = $result[2];
+                }
+                $name = time().$i.'.'.$type;
+                $content = rtrim($img_str[2*$i+1],'"');
+                $content = rtrim($content,'\\');
+                if(file_put_contents('./static/uploads/goods/'.$name,base64_decode($content))){
+                    $img_url .= '/static/uploads/goods/'.$name.',';
                 }
             }
+
             $params['img'] = $img_url;
         }
+
+//        //载入所需文件上传类库
+//        $this->load->library('upload');
+//
+//        //配置上传参数
+//        $upload_config = array(
+//            'upload_path' => './static/uploads/goods/',
+//            'allowed_types' => 'jpg|png|gif',
+////            'max_size' => '500',
+////            'max_width' => '1024',
+////            'max_height' => '768',
+//        );
+//        $this->upload->initialize($upload_config);
+//        //循环处理上传文件
+////        $data_res = $this->upload->do_upload('img');
+//        //循环处理上传文件
+//        $file = $_FILES;
+//        if($file){
+//            $count = count($_FILES['img']['name']);
+//            $img_url = '';
+//            for($i=0;$i<$count;$i++){
+//                $type_name = explode('.',$file['img']['name'][$i]);
+//
+//                $file_name_save = time().$i.'.'.$type_name[count($type_name)-1];
+//                $_FILES['img']['name'] = $file_name_save;
+//                $_FILES['img']['type'] = $file['img']['type'][$i];
+//                $_FILES['img']['tmp_name'] = $file['img']['tmp_name'][$i];
+//                $_FILES['img']['error'] = $file['img']['error'][$i];
+//                $_FILES['img']['size'] = $file['img']['size'][$i];
+//                $res_data = $this->upload->do_upload('img');
+//                if($res_data){
+//                    $img_url .= '/static/uploads/goods/'.$file_name_save.',';
+//                }
+//            }
+//            $params['img'] = $img_url;
+//        }
 
         $user_info = $this->user->get_one(['uid'=>$params['uid']]);
         if($user_info){
