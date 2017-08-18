@@ -168,12 +168,12 @@ class Commons extends MY_Controller {
 					$user_info = $this->user->get_one(['uid' => $params['uid']]);
 					$phone_data = ['mobile' => $params['phone']];
 					$this->user->update($user_info['id'],$phone_data);
-					$this->return_data(['code'=>1]);
+					$this->return_data(['code'=>1],'注册成功,请输入公司信息');
 				}else{
-					$this->returnError('验证码错误');
+					$this->return_data(['code'=>-1],'验证码错误');
 				}
 			}else{
-				$this->returnError('验证码已经过期');
+				$this->return_data(['code'=>-2],'验证码已经过期');
 			}
 		}
 
