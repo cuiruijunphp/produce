@@ -96,7 +96,6 @@ class Commons extends MY_Controller {
 
 		$rules = ['phone' => 'trim'];
         $params = $this->check_param($rules,[],'post');
-			var_dump($params);
 
 		//判断该手机号是否在允许注册范围内
 		$phone_is_exist = 0;
