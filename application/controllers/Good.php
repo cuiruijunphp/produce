@@ -104,6 +104,14 @@ class Good extends MY_Controller {
 		$params = $this->check_param($rules,[],'post');
 
         var_dump($_POST['img']);
+        echo PHP_EOL;
+
+        $img = $_POST['img'];
+        $img_tmp = ltrim($img,'"[');
+        $img_tmp_1 = rtrim($img_tmp,']"');
+
+        $img_str = explode(',',$img_tmp_1);
+        echo count($img_str);
 
 
         if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $_POST['img'], $result)){
