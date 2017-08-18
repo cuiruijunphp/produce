@@ -25,6 +25,47 @@ return:
     }
 }
 
+### 1.2 发送验证码 ###
+
+url:http://pro.cuithink.com/commons/send_msg
+
+type:post 
+
+param: phone:18565616993  //手机号
+
+return:
+
+{
+    "code": "200",
+    "msg": "",
+    "data": {
+        'code':1 //1-成功， -1：插入数据库失败  -2发送失败
+    }
+}
+
+
+### 1.3 验证验证码 ###
+
+url:http://pro.cuithink.com/commons/verify_code
+
+type:post 
+
+param: phone:18565616993  //手机号
+
+return:
+
+{
+    "code": "200",
+    "msg": "",
+    "data": {
+        'code':1 //1-成功， -1：插入数据库失败  -2发送失败
+    }
+}
+
+
+
+
+
 ## 2.商品模块 ##
 ### 2.1 商品分类 ###
 #### 2.1.1 商品分类列表 ####

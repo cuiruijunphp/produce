@@ -91,7 +91,7 @@ class Commons extends MY_Controller {
 	}
 
 
-	public function send_msg(){
+		public function send_msg(){
 //        header('Content-Type: text/plain; charset=utf-8');
 
 		$rules = ['phone' => 'trim'];
@@ -138,12 +138,12 @@ class Commons extends MY_Controller {
 				'text'=>$verfiry,
 		]);
 		if($res){
-//			$result = $this->aliyunsms->sendSms($signName, $templateCode, $phoneNumbers, $tmp);
-//			if($result){
-//				$this->return_data(['code'=>1]);
-//			}else{
-//				$this->return_data(['code'=>-1]);
-//			}
+			$result = $this->aliyunsms->sendSms($signName, $templateCode, $phoneNumbers, $tmp);
+			if($result){
+				$this->return_data(['code'=>1]);
+			}else{
+				$this->return_data(['code'=>-1]);
+			}
 		}else{
 			$this->return_data(['code'=>-2]);
 		}
