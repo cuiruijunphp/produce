@@ -171,9 +171,9 @@ class Commons extends MY_Controller {
 			if($phone_is_use['expire_time'] > time()){
 				if($params['code'] == $phone_is_use['text']){
 					//更新数据库中mobile字段
-					$user_info = $this->user->get_one(['uid' => $params['uid']]);
-					$phone_data = ['mobile' => $params['phone']];
-					$this->user->update($user_info['id'],$phone_data);
+//					$user_info = $this->user->get_one(['uid' => $params['uid']]);
+//					$phone_data = ['mobile' => $params['phone']];
+//					$this->user->update($user_info['id'],$phone_data);
 					$this->return_data(['code'=>1]);
 				}else{
 					$this->returnError('验证码错误');

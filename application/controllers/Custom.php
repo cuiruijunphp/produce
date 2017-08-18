@@ -54,4 +54,36 @@ class Custom extends MY_Controller {
         $this->return_data($user_info);
     }
 
+    /*
+     *
+     * 注册
+     *
+     *
+     */
+    public function seller_register(){
+        // 按设置的规则检查参数
+        $rules = ['uid,company_name,phone' => 'trim|required','company_logo'=>'trim'];
+        $params = $this->check_param($rules);
+
+        if(!$params['uid']){
+            $params['uid'] = '';
+        }
+        $return_code = $this->is_uid($params['uid']);
+        if($return_code == -1){
+            $this->returnError('先登录',501);
+            exit;
+        }
+
+        $where['uid'] = $params['uid'];
+        $user_info = $this->user->get_one($where);
+
+        if($user_info['type'] == 2){
+            $res = $this->user->update($user_info['id'],['company_name'=>$params['company_name'],'mobile'=>$params['phone']]);
+            $this->return_data(['code'=>$res]);
+        }else{
+            $this->returnError('只允许卖家注册');
+            exit;
+        }
+    }
+
 }
