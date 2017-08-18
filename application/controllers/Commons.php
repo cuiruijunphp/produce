@@ -50,14 +50,7 @@ class Commons extends MY_Controller {
 			//如果没有的话,就新建一个账户,然后写入表
 			$uid = $this->create_guid();
 			$type = $params['type'];
-			//1-买家，2-商户
-			if($type == 1){
-				$mobile = '';
-			}else{
-				//卖家的话，要发验证码
-				$mobile = 1;
-			}
-			$insert_res = $this->user->add(['open_id'=>$params['open_id'],'uid'=>$uid,'type' => $type,'mobile'=>$mobile,'nick_name'=>urldecode($params['nick_name']),'head_img_url'=>$params['head_img_url']]);
+			$insert_res = $this->user->add(['open_id'=>$params['open_id'],'uid'=>$uid,'type' => $type,'nick_name'=>urldecode($params['nick_name']),'head_img_url'=>$params['head_img_url']]);
 
 			//增加access_token
 			if($insert_res){
