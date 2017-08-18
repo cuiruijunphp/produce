@@ -126,6 +126,7 @@ class MY_Controller extends CI_Controller {
             }
             $this->returnError($errmsg . $this->lang->line('txt_base_error_msg'), '400');
             return FALSE;
+            exit;
         }
         return $request_data;
     }

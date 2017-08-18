@@ -77,7 +77,9 @@ class Good extends MY_Controller {
         $rules = ['id' => 'required|integer'];
         $params = $this->check_param($rules);
 
-        $res = $this->goods->read($params['id']);
+        $res = $this->goods->get_good_detail($params['id']);
+
+//        $res = $this->goods->read($params['id']);
         if($res){
             if($res['img']){
                 $img_list = explode(',',trim($res['img'],','));
@@ -95,8 +97,7 @@ class Good extends MY_Controller {
 	/*
 	 * 添加商品
 	 */
-	public function add()
-	{
+	public function add(){
 		// 按设置的规则检查参数
 		$rules = ['name,price,type_id,uid,stock' => 'trim','desc,img,id'=>'trim'];
 		$params = $this->check_param($rules,[],'post');
