@@ -114,7 +114,7 @@ class Good extends MY_Controller {
         $count = count($img_str);
         for($i=0;$i<$count/2;$i++){
             $type = 'txt';
-            if (preg_match('/^(\"data:\s*image\/(\w+);base64,)/', $img_str[2*$i], $result)){
+            if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $img_str[2*$i], $result)){
                 $type = $result[2];
             }
             $name = time().$i.'.'.$type;
