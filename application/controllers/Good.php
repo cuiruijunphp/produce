@@ -117,6 +117,7 @@ class Good extends MY_Controller {
             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $img_str[2*$i], $result)){
                 $type = $result[2];
             }
+            var_dump($img_str[2*$i+1]);
             $name = time().$i.'.'.$type;
             $content = rtrim($img_str[2*$i+1],'"');
             $content = rtrim($content,'\\');
