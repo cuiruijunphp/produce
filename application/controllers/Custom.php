@@ -37,7 +37,7 @@ class Custom extends MY_Controller {
      */
     public function get_info_by_uid(){
         // 按设置的规则检查参数
-        $rules = ['uid' => 'required|trim'];
+        $rules = ['uid' => 'trim'];
         $params = $this->check_param($rules);
 
         if(!$params['uid']){
