@@ -154,6 +154,9 @@ class Good extends MY_Controller {
 
         $user_info = $this->user->get_one(['uid'=>$params['uid']]);
         if($user_info){
+            if($user_info['type'] == 1){
+                $this->returnError('只有卖家才能进行商品上传~');
+            }
             $params['shop_id'] = $user_info['id'];
         }
         unset($params['uid']);
@@ -171,7 +174,7 @@ class Good extends MY_Controller {
 		if($res){
 			$this->return_data('操作成功',200);
 		}else{
-			$this->returnError('操作失败',500);
+			$this->returnError('操作失败');
 		}
 	}
 
@@ -181,15 +184,30 @@ class Good extends MY_Controller {
     public function del()
     {
         // 按设置的规则检查参数
-        $rules = ['id'=>'trim|integer|required'];
+        $rules = ['id'=>'trim|integer|required','uid'=>'trim|required'];
         $params = $this->check_param($rules,[],'post');
+
+        if(!$params['uid']){
+            $params['uid'] = '';
+        }
+        $return_code = $this->is_uid($params['uid']);
+        if($return_code == -1){
+            $this->returnError('先登录',501);
+            exit;
+        }
+        $good_info = $this->goods->read($params['id']);
+        $user_info = $this->user->get_one(['uid'=>$params['uid']]);
+
+        if($good_info['good_id'] != $user_info['id']){
+            $this->returnError('只有商家才能进行操作');
+        }
 
         $res = $this->goods->delete_by_id($params['id']);
 
         if($res){
             $this->return_data('操作成功',200);
         }else{
-            $this->returnError('操作失败',500);
+            $this->returnError('操作失败');
         }
     }
 }

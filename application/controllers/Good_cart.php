@@ -128,7 +128,7 @@ class Good_cart extends MY_Controller {
 				$this->return_data('操作成功',200);
 			}
 		}else{
-			$this->returnError('操作失败',500);
+			$this->returnError('操作失败');
 		}
 	}
 }
