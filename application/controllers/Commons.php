@@ -40,7 +40,7 @@ class Commons extends MY_Controller {
 
 		$access_token = $params['access_token'];
 		$where['open_id'] = $params['open_id'];
-		$where['type'] = $params['type'];
+//		$where['type'] = $params['type'];
 		//查看是否已经注册
 		$user_res = $this->user->get_one($where);
 		if($user_res){
