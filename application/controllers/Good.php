@@ -102,19 +102,15 @@ class Good extends MY_Controller {
 		// 按设置的规则检查参数
 		$rules = ['name,price,type_id,uid,stock' => 'trim','desc,img,id'=>'trim'];
 		$params = $this->check_param($rules,[],'post');
-        var_dump($params);
-        var_dump($_FILES);
-        var_dump($params['img']);
-        file_put_contents('./static/uploads/goods/3.jpg',$params['img']);
-        var_dump(base64_decode($params['img']));
 
-//        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', base64_decode($params['img'], $result)){
-//            $type = $result[2];
-//            $new_file = "./test.{$type}";
-//            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
-//                echo '新文件保存成功：', $new_file;
-//            }
-//        }
+
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $params['img'], $result)){
+            $type = $result[2];
+            $new_file = "./static/uploads/goods/test..{$type}";
+            if (file_put_contents($new_file, $result[1])){
+                echo '新文件保存成功：', $new_file;
+            }
+        }
 
         exit;
 
