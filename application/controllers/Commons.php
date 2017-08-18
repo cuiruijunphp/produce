@@ -123,7 +123,7 @@ class Commons extends MY_Controller {
 			}
 		}
 
-		$this->load->library('aliyunsms');
+		$this->load->library('AliyunSms');
 		$signName = '湘联采';
 		$templateCode = 'SMS_85990047';
 		$phoneNumbers = $params['phone'];
