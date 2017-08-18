@@ -153,14 +153,27 @@ class Commons extends MY_Controller {
 	 * 验证码验证
 	 */
 	public function verify_code(){
-		$rules = ['phone,code' => 'required|trim'];
+		$rules = ['phone,code,uid' => 'required|trim'];
 		$params = $this->check_param($rules,[],'post');
+
+		if(!$params['uid']){
+			$params['uid'] = '';
+		}
+		$return_code = $this->is_uid($params['uid']);
+		if($return_code == -1){
+			$this->returnError('先登录',501);
+			exit;
+		}
 
 		$this->load->model('sms_msg');
 		$phone_is_use = $this->sms_msg->get_one(['phone'=>$params['phone']],' expire_time desc');
 		if($phone_is_use){
 			if($phone_is_use['expire_time'] > time()){
 				if($params['code'] == $phone_is_use['text']){
+					//更新数据库中mobile字段
+					$user_info = $this->user->get_one(['uid' => $params['uid']]);
+					$phone_data = ['mobile' => $params['phone']];
+					$this->user->update($user_info['id'],$phone_data);
 					$this->return_data(['code'=>1]);
 				}else{
 					$this->returnError('验证码错误');
