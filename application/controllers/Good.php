@@ -104,6 +104,15 @@ class Good extends MY_Controller {
         var_dump($_FILES);
         var_dump($params['img']);
         var_dump(base64_decode($params['img']));
+
+//        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', base64_decode($params['img'], $result)){
+//            $type = $result[2];
+//            $new_file = "./test.{$type}";
+//            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
+//                echo '新文件保存成功：', $new_file;
+//            }
+//        }
+
         exit;
 
 

@@ -102,7 +102,7 @@ class Commons extends MY_Controller {
 			}
 		}
 		if($phone_is_exist == 0){
-			$this->returnError('手机号不在允许范围内');
+			$this->return_data(['res'=>-1],'手机号不在允许范围内');
 			exit;
 		}
 
@@ -111,7 +111,7 @@ class Commons extends MY_Controller {
 		$phone_is_use = $this->sms_msg->get_one(['phone'=>$params['phone']],' expire_time desc');
 		if($phone_is_use){
 			if($phone_is_use['expire_time'] > time()){
-				$this->returnError('验证码依然有效~');
+				$this->return_data(['res'=>-2],'验证码依然有效~');
 				exit;
 			}
 		}
