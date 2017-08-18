@@ -103,7 +103,7 @@ class Commons extends MY_Controller {
 			}
 		}
 		if($phone_is_exist == 0){
-			$this->return_data(['res'=>-1],'手机号不在允许范围内');
+			$this->returnError('手机号不在允许范围内');
 			exit;
 		}
 
@@ -112,7 +112,7 @@ class Commons extends MY_Controller {
 		$phone_is_use = $this->sms_msg->get_one(['phone'=>$params['phone']],' expire_time desc');
 		if($phone_is_use){
 			if($phone_is_use['expire_time'] > time()){
-				$this->return_data(['res'=>-2],'验证码依然有效~');
+				$this->returnError('验证码依然有效~');
 				exit;
 			}
 		}
@@ -171,10 +171,10 @@ class Commons extends MY_Controller {
 					$this->user->update($user_info['id'],$phone_data);
 					$this->return_data(['code'=>1],'注册成功,请输入公司信息');
 				}else{
-					$this->return_data(['code'=>-1],'验证码错误');
+					$this->returnError('验证码错误');
 				}
 			}else{
-				$this->return_data(['code'=>-2],'验证码已经过期');
+				$this->returnError('验证码已经过期');
 			}
 		}
 
