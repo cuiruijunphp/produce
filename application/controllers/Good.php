@@ -103,10 +103,7 @@ class Good extends MY_Controller {
 		$rules = ['name,price,type_id,uid,stock' => 'trim','desc,img,id'=>'trim'];
 		$params = $this->check_param($rules,[],'post');
 
-        var_dump($params['img']);
-        exit;
-
-
+        var_dump($_POST['img']);
 
 
         if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $params['img'], $result)){
