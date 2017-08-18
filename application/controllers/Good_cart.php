@@ -126,7 +126,7 @@ class Good_cart extends MY_Controller {
 			$limit_num = $good_info['stock'] - $num;
 			$update_res = $this->goods->update($params['good_id'],['stock'=>$limit_num]);
 			if($update_res){
-				$this->return_data('操作成功',200);
+				$this->return_data(['code'=>1],'操作成功');
                 exit;
 			}
 		}else{
