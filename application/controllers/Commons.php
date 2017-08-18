@@ -135,12 +135,12 @@ class Commons extends MY_Controller {
 		if($res){
 			$result = $this->aliyunsms->sendSms($signName, $templateCode, $phoneNumbers, $tmp);
 			if($result){
-				$this->return_data(['code'=>1]);
+				$this->return_data(['code'=>1],'验证码发送成功~');
 			}else{
-				$this->return_data(['code'=>-1]);
+				$this->returnError('发送验证码失败');
 			}
 		}else{
-			$this->return_data(['code'=>-2]);
+			$this->returnError('发送验证码失败');
 		}
 	}
 
