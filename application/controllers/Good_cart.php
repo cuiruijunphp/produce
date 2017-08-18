@@ -99,6 +99,7 @@ class Good_cart extends MY_Controller {
         if($user_info){
             if($user_info['type'] == 2){
                 $this->returnError('只有买家才能进行购买~');
+                exit;
             }
         }
 
@@ -126,9 +127,11 @@ class Good_cart extends MY_Controller {
 			$update_res = $this->goods->update($params['good_id'],['stock'=>$limit_num]);
 			if($update_res){
 				$this->return_data('操作成功',200);
+                exit;
 			}
 		}else{
 			$this->returnError('操作失败');
+            exit;
 		}
 	}
 }
