@@ -62,7 +62,7 @@ class Custom extends MY_Controller {
      */
     public function seller_register(){
         // 按设置的规则检查参数
-        $rules = ['uid,company_name,phone' => 'trim|required','company_logo'=>'trim'];
+        $rules = ['uid,company_name' => 'trim|required','company_logo'=>'trim'];
         $params = $this->check_param($rules,[],'post');
 
         if(!$params['uid']){
@@ -78,7 +78,7 @@ class Custom extends MY_Controller {
         $user_info = $this->user->get_one($where);
 
         if($user_info['type'] == 2){
-            $res = $this->user->update($user_info['id'],['company_name'=>$params['company_name'],'mobile'=>$params['phone']]);
+            $res = $this->user->update($user_info['id'],['company_name'=>$params['company_name']]);
             $this->return_data(['code'=>$res]);
         }else{
             $this->returnError('只允许卖家注册');

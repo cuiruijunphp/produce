@@ -102,6 +102,8 @@ class Good extends MY_Controller {
 		$params = $this->check_param($rules,[],'post');
         var_dump($params);
         var_dump($_FILES);
+        var_dump($params['img']);
+        var_dump(base64_decode($params['img']));
         exit;
 
 
