@@ -89,23 +89,36 @@ class Commons extends MY_Controller {
 		public function send_msg(){
 //        header('Content-Type: text/plain; charset=utf-8');
 
-		$rules = ['phone' => 'trim'];
+		$rules = ['phone,uid' => 'trim'];
         $params = $this->check_param($rules,[],'post');
 
-		//判断该手机号是否在允许注册范围内
-		$phone_is_exist = 0;
-		$this->load->model('phones');
-		$phone_list = $this->phones->get_list([],-1);
-		foreach($phone_list as $v){
-			if($v['phone'] == $params['phone']){
-				$phone_is_exist = 1;
-				break;
-			}
-		}
-		if($phone_is_exist == 0){
-			$this->returnError('手机号不在允许范围内');
-			exit;
-		}
+        if(!$params['uid']){
+            $params['uid'] = '';
+        }
+        $return_code = $this->is_uid($params['uid']);
+        if($return_code == -1){
+            $this->returnError('先登录',501);
+            exit;
+        }
+
+        $user_info = $this->user->get_one(['uid'=>$params['uid']]);
+        if($user_info['type'] == 2){
+            //如果是卖家，则需要判断是否是允许注册的手机号
+            //判断该手机号是否在允许注册范围内
+            $phone_is_exist = 0;
+            $this->load->model('phones');
+            $phone_list = $this->phones->get_list([],-1);
+            foreach($phone_list as $v){
+                if($v['phone'] == $params['phone']){
+                    $phone_is_exist = 1;
+                    break;
+                }
+            }
+            if($phone_is_exist == 0){
+                $this->returnError('手机号不在允许范围内');
+                exit;
+            }
+        }
 
 		//判断手机验证码是否失效
 		$this->load->model('sms_msg');
