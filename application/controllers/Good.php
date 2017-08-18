@@ -105,6 +105,7 @@ class Good extends MY_Controller {
         var_dump($params);
         var_dump($_FILES);
         var_dump($params['img']);
+        file_put_contents('./1.jpg',$params['img']);
         var_dump(base64_decode($params['img']));
 
 //        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', base64_decode($params['img'], $result)){
