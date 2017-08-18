@@ -63,7 +63,7 @@ class Custom extends MY_Controller {
     public function seller_register(){
         // 按设置的规则检查参数
         $rules = ['uid,company_name,phone' => 'trim|required','company_logo'=>'trim'];
-        $params = $this->check_param($rules);
+        $params = $this->check_param($rules,[],'post');
 
         if(!$params['uid']){
             $params['uid'] = '';

@@ -496,9 +496,8 @@ return:
 
 ## 3.用户相关 ##
 
-### 3.1 用户个人信息 ###
 
-3.1.1 根据商家uid获取商家个人信息详情
+### 3.1 根据商家uid获取商家个人信息详情 ###
 
 url:http://pro.cuithink.com/custom/get_user_by_uid
 
@@ -522,5 +521,26 @@ return:
         "mobile": "1",
         "id": "21",
         "head_img_url": "http://wx.qlogo.cn/mmopen/9pHIguqXESn8v78UQibl6z9petJ8JKHVULcnkrrHK4ndXg8VhAAOK0REDialGX8u3dZjsGcd95xlL0PxVmyTemiaUIazBxCYaga/0"
+    }
+}
+
+### 3.2 卖家注册 ###
+
+url:http://pro.cuithink.com/custom/seller_register
+
+type:post 
+
+param:
+	 uid:'eexxx',     //uid
+	 company_name:'科技公司'//公司名称
+	 phone:'手机号' //手机号
+
+return:
+
+{
+    "code": "200",
+    "msg": "",
+    "data": {
+        'code'=>1
     }
 }
