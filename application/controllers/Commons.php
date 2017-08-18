@@ -134,7 +134,7 @@ class Commons extends MY_Controller {
 		$res = $this->sms_msg->add([
 				'phone'=>$params['phone'],
 				'create_time'=>time(),
-				'expire_time'=>time()+60,
+				'expire_time'=>time()+600,
 				'text'=>$verfiry,
 		]);
 		if($res){
