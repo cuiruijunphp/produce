@@ -118,7 +118,9 @@ class Good extends MY_Controller {
                 $type = $result[2];
             }
             $name = time().$i.'.'.$type;
-            file_put_contents('./static/uploads/goods/'.$name,rtrim($img_str[2*$i+1],'"'));
+            $content = rtrim($img_str[2*$i+1],'"');
+            $content = rtrim($content,'\\');
+            file_put_contents('./static/uploads/goods/'.$name,$content);
         }
 
 
