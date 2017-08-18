@@ -115,7 +115,7 @@ class Good extends MY_Controller {
         for($i=0;$i<$count/2;$i++){
             $type = 'jpg';
             $name = time().$i.$type;
-            file_put_contents('./static/uploads/goods/'.$name,$img_str[2*$i-1]);
+            file_put_contents('./static/uploads/goods/'.$name,$img_str[2*$i+1]);
         }
 
 
