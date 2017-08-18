@@ -77,6 +77,7 @@ class Commons extends MY_Controller {
 		$access_token_res['nick_name'] = $user_info['nick_name'];
 		$access_token_res['type'] = $user_info['type'];
 		$access_token_res['head_img_url'] = $user_info['head_img_url'];
+		$access_token_res['phone'] = $user_info['mobile'];
 		$this->return_data($access_token_res);
 	}
 
