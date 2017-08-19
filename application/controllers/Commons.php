@@ -183,8 +183,16 @@ class Commons extends MY_Controller {
 					//更新数据库中mobile字段
 					$user_info = $this->user->get_one(['uid' => $params['uid']]);
 					$phone_data = ['mobile' => $params['phone'],'type'=>$params['send_type']];
-					$this->user->update($user_info['id'],$phone_data);
-					$this->return_data(['code'=>1],'注册成功,请输入公司信息');
+					$update_res = $this->user->update($user_info['id'],$phone_data);
+                    if($update_res){
+                        if($params['send_type'] == 1){
+                            $this->return_data(['code'=>1],'注册卖家成功,请输入公司信息');
+                        }else{
+                            $this->return_data(['code'=>1],'注册买家成功');
+                        }
+                    }else{
+                        $this->returnError('注册失败');
+                    }
 				}else{
 					$this->returnError('验证码错误');
 				}
