@@ -48,7 +48,7 @@ class Good extends MY_Controller {
 
 		$offset = ($page-1)*$page_size;
         $where['is_show'] = 1;
-            $res = $this->goods->get_list($where,$page_size,$offset,' sort desc');
+            $res = $this->goods->get_list($where,$page_size,$offset,' id desc');
         if($res){
             $img_array = [];
             foreach($res as $k=>&$v){
