@@ -284,6 +284,9 @@ class MY_Controller extends CI_Controller {
                 if($is_access_token['expire_time'] < time()){
                     return -1;
                 }else{
+                    if($is_user && ($is_user['type'] == 1) && (!$is_user['mobile'])){
+                        return -2;
+                    }
                     return 1;
                 }
             }

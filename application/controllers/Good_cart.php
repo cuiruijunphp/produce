@@ -88,7 +88,13 @@ class Good_cart extends MY_Controller {
 			exit;
 		}
 
-		if(!isset($params['num'])){
+        if($return_code == -2){
+            $this->returnError('请先绑定手机号',509);
+            exit;
+        }
+
+
+        if(!isset($params['num'])){
 			$num = 1;
 		}else{
 			$num = $params['num'];

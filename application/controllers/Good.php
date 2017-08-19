@@ -211,6 +211,7 @@ class Good extends MY_Controller {
 
         if($good_info['good_id'] != $user_info['id']){
             $this->returnError('只有商家才能进行操作');
+            exit;
         }
 
         $res = $this->goods->delete_by_id($params['id']);
