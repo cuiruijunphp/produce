@@ -255,7 +255,8 @@ class Good extends MY_Controller {
             if($res['img']){
                 $img_list = explode(',',trim($res['img'],','));
                 foreach($img_list as $kk=>&$vv){
-                    $vv = APP_URL.$vv;
+                    $v = APP_URL.$vv;
+                    $vv = base64_encode(file_get_contents($v));
                 }
                 $res['img'] = $img_list;
             }
