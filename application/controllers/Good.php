@@ -256,7 +256,8 @@ class Good extends MY_Controller {
                 $img_list = explode(',',trim($res['img'],','));
                 foreach($img_list as $kk=>&$vv){
                     $v = APP_URL.$vv;
-                    $vv = base64_encode(file_get_contents($v));
+                    $img_info = getimagesize($v);
+                    $vv = "data:{$img_info['mime']};base64," . base64_encode(file_get_contents($v));
                 }
                 $res['img'] = $img_list;
             }
