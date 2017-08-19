@@ -91,7 +91,6 @@ class Commons extends MY_Controller {
 
 		$rules = ['phone,uid' => 'trim'];
         $params = $this->check_param($rules,[],'post');
-        var_dump($params);
 
 //        if(!$params['uid']){
 //            $params['uid'] = '';
@@ -148,7 +147,6 @@ class Commons extends MY_Controller {
 		]);
 		if($res){
 			$result = $this->aliyunsms->sendSms($signName, $templateCode, $phoneNumbers, $tmp);
-            var_dump($result);
 			if($result){
 				$this->return_data(['code'=>1],'验证码发送成功~');
 			}else{
