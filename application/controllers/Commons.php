@@ -86,20 +86,21 @@ class Commons extends MY_Controller {
 	}
 
 
-		public function send_msg(){
+	public function send_msg(){
 //        header('Content-Type: text/plain; charset=utf-8');
 
 		$rules = ['phone,uid' => 'trim'];
         $params = $this->check_param($rules,[],'post');
+        var_dump($params);
 
-        if(!$params['uid']){
-            $params['uid'] = '';
-        }
-        $return_code = $this->is_uid($params['uid']);
-        if($return_code == -1){
-            $this->returnError('先登录',501);
-            exit;
-        }
+//        if(!$params['uid']){
+//            $params['uid'] = '';
+//        }
+//        $return_code = $this->is_uid($params['uid']);
+//        if($return_code == -1){
+//            $this->returnError('先登录',501);
+//            exit;
+//        }
 
         $user_info = $this->user->get_one(['uid'=>$params['uid']]);
         if($user_info['type'] == 2){
@@ -147,6 +148,7 @@ class Commons extends MY_Controller {
 		]);
 		if($res){
 			$result = $this->aliyunsms->sendSms($signName, $templateCode, $phoneNumbers, $tmp);
+            var_dump($result);
 			if($result){
 				$this->return_data(['code'=>1],'验证码发送成功~');
 			}else{

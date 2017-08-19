@@ -183,7 +183,7 @@ class Good extends MY_Controller {
 
 
 		if($res){
-			$this->return_data('操作成功',200);
+			$this->return_data(['code'=>1],'操作成功');
 		}else{
 			$this->returnError('操作失败');
 		}
