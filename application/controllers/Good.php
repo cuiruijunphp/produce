@@ -216,7 +216,7 @@ class Good extends MY_Controller {
         $res = $this->goods->delete_by_id($params['id']);
 
         if($res){
-            $this->return_data('操作成功',200);
+            $this->return_data(['code'=>1],'操作成功',200);
         }else{
             $this->returnError('操作失败');
         }
