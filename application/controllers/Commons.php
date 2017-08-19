@@ -40,6 +40,7 @@ class Commons extends MY_Controller {
 
 		$access_token = $params['access_token'];
 		$where['open_id'] = $params['open_id'];
+		$where['is_active'] = 1;
 //		$where['type'] = $params['type'];
 		//查看是否已经注册
 		$user_res = $this->user->get_one($where);
@@ -51,7 +52,11 @@ class Commons extends MY_Controller {
 			//如果没有的话,就新建一个账户,然后写入表
 			$uid = $this->create_guid();
 			$type = $params['type'];
-			$insert_res = $this->user->add(['open_id'=>$params['open_id'],'uid'=>$uid,'type' => $type,'nick_name'=>urldecode($params['nick_name']),'head_img_url'=>$params['head_img_url']]);
+            $is_active = 0;
+            if($type == 1){
+                $is_active = 1;
+            }
+			$insert_res = $this->user->add(['open_id'=>$params['open_id'],'uid'=>$uid,'type' => $type,'nick_name'=>urldecode($params['nick_name']),'head_img_url'=>$params['head_img_url'],'is_active'=>$is_active]);
 
 			//增加access_token
 			if($insert_res){
@@ -64,7 +69,7 @@ class Commons extends MY_Controller {
 				];
 				$access_token_insert_res = $this->access_token->add($access_token_insert_data);
 			}
-			$access_token_res = $this->access_token->get_one($where,' expire_time desc');
+			$access_token_res = $this->access_token->get_one(['uid'=>$uid,'open_id'=>$params['open_id']],' expire_time desc');
 		}
 
 		$user_info = $this->user->get_one($where);
@@ -180,7 +185,7 @@ class Commons extends MY_Controller {
 				if($params['code'] == $phone_is_use['text']){
 					//更新数据库中mobile字段
 					$user_info = $this->user->get_one(['uid' => $params['uid']]);
-					$phone_data = ['mobile' => $params['phone']];
+					$phone_data = ['mobile' => $params['phone'],'is_active'=>1];
 					$this->user->update($user_info['id'],$phone_data);
 					$this->return_data(['code'=>1],'注册成功,请输入公司信息');
 				}else{
