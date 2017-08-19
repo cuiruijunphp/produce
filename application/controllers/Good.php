@@ -242,10 +242,16 @@ class Good extends MY_Controller {
             exit;
         }
 
-        $res = $this->goods->read($params['id']);
+        $res = $this->goods->get_sell_good_detail($params['id']);
+        $user_info = $this->user->get_one(['uid'=>$params['uid']]);
 
 //        $res = $this->goods->read($params['id']);
         if($res){
+            $res = $res[0];
+            if($res['shop_id'] != $user_info['id']){
+                $this->returnError('请操作自己上传的商品');
+                exit;
+            }
             if($res['img']){
                 $img_list = explode(',',trim($res['img'],','));
                 foreach($img_list as $kk=>&$vv){
