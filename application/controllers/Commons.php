@@ -91,7 +91,7 @@ class Commons extends MY_Controller {
 	public function send_msg(){
 //        header('Content-Type: text/plain; charset=utf-8');
 
-		$rules = ['phone,uid' => 'trim'];
+		$rules = ['phone,uid,send_type' => 'trim'];
         $params = $this->check_param($rules,[],'post');
 
 //        if(!$params['uid']){
@@ -104,7 +104,7 @@ class Commons extends MY_Controller {
 //        }
 
         $user_info = $this->user->get_one(['uid'=>$params['uid']]);
-        if($user_info['type'] == 2){
+        if($params['send_type'] == 2){
             //如果是卖家，则需要判断是否是允许注册的手机号
             //判断该手机号是否在允许注册范围内
             $phone_is_exist = 0;
@@ -163,7 +163,7 @@ class Commons extends MY_Controller {
 	 * 验证码验证
 	 */
 	public function verify_code(){
-		$rules = ['phone,code,uid' => 'required|trim'];
+		$rules = ['phone,code,uid,send_type' => 'required|trim'];
 		$params = $this->check_param($rules,[],'post');
 
 		if(!$params['uid']){
@@ -182,7 +182,7 @@ class Commons extends MY_Controller {
 				if($params['code'] == $phone_is_use['text']){
 					//更新数据库中mobile字段
 					$user_info = $this->user->get_one(['uid' => $params['uid']]);
-					$phone_data = ['mobile' => $params['phone'],'is_active'=>1];
+					$phone_data = ['mobile' => $params['phone'],'type'=>$params['send_type']];
 					$this->user->update($user_info['id'],$phone_data);
 					$this->return_data(['code'=>1],'注册成功,请输入公司信息');
 				}else{

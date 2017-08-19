@@ -274,7 +274,7 @@ class MY_Controller extends CI_Controller {
     /*
      * 根据uid 查看是否有这个uid或者是否过期
      */
-    public function  is_uid($uid){
+    public function is_uid($uid){
         $this->load->model('user');
         $this->load->model('access_token');
         $is_user = $this->user->get_one(['uid'=>$uid]);
