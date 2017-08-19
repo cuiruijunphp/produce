@@ -52,11 +52,8 @@ class Commons extends MY_Controller {
 			//如果没有的话,就新建一个账户,然后写入表
 			$uid = $this->create_guid();
 			$type = $params['type'];
-            $is_active = 0;
-            if($type == 1){
-                $is_active = 1;
-            }
-			$insert_res = $this->user->add(['open_id'=>$params['open_id'],'uid'=>$uid,'type' => $type,'nick_name'=>urldecode($params['nick_name']),'head_img_url'=>$params['head_img_url'],'is_active'=>$is_active]);
+
+			$insert_res = $this->user->add(['open_id'=>$params['open_id'],'uid'=>$uid,'type' => $type,'nick_name'=>urldecode($params['nick_name']),'head_img_url'=>$params['head_img_url']]);
 
 			//增加access_token
 			if($insert_res){
