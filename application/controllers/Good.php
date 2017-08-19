@@ -190,7 +190,7 @@ class Good extends MY_Controller {
 	}
 
     /*
-	 * 删除商品
+	 * 删除商品--卖家
 	 */
     public function del()
     {
@@ -220,5 +220,42 @@ class Good extends MY_Controller {
         }else{
             $this->returnError('操作失败');
         }
+    }
+
+    /*
+     *
+     * 获取商品详情--卖家
+     *
+     *
+     */
+    public function  seller_detail(){
+        // 按设置的规则检查参数
+        $rules = ['id' => 'required|integer','uid'=>'trim'];
+        $params = $this->check_param($rules);
+
+        if(!$params['uid']){
+            $params['uid'] = '';
+        }
+        $return_code = $this->is_uid($params['uid']);
+        if($return_code == -1){
+            $this->returnError('先登录',501);
+            exit;
+        }
+
+        $res = $this->goods->read($params['id']);
+
+//        $res = $this->goods->read($params['id']);
+        if($res){
+            if($res['img']){
+                $img_list = explode(',',trim($res['img'],','));
+                foreach($img_list as $kk=>&$vv){
+                    $vv = APP_URL.$vv;
+                }
+                $res['img'] = $img_list;
+            }
+        }
+        $res['img_thumb'] = $res['img'] ? $res['img'][0] : '';
+
+        $this->return_data($res);
     }
 }
