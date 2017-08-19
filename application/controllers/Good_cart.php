@@ -82,7 +82,7 @@ class Good_cart extends MY_Controller {
 		if(!$params['uid']){
 			$params['uid'] = '';
 		}
-		$return_code = $this->is_uid($params['uid']);
+		$return_code = $this->is_uid($params['uid'],1);
 		if($return_code == -1){
 			$this->returnError('先登录',501);
 			exit;

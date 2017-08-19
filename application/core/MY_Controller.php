@@ -274,7 +274,7 @@ class MY_Controller extends CI_Controller {
     /*
      * 根据uid 查看是否有这个uid或者是否过期
      */
-    public function is_uid($uid){
+    public function is_uid($uid,$type = ''){
         $this->load->model('user');
         $this->load->model('access_token');
         $is_user = $this->user->get_one(['uid'=>$uid]);
@@ -284,7 +284,8 @@ class MY_Controller extends CI_Controller {
                 if($is_access_token['expire_time'] < time()){
                     return -1;
                 }else{
-                    if($is_user && ($is_user['type'] == 1) && (!$is_user['mobile'])){
+                    $type = $type ? $type : $is_access_token['type'];
+                    if($is_user && ($type == 1) && (!$is_user['mobile'])){
                         return -2;
                     }
                     return 1;
