@@ -100,7 +100,7 @@ class Good extends MY_Controller {
 	 */
 	public function add(){
 		// 按设置的规则检查参数
-		$rules = ['name,price,type_id,uid,stock' => 'trim','desc,img,id'=>'trim'];
+		$rules = ['name,price,type_id,uid,stock' => 'trim','desc,img,id,unit'=>'trim'];
 		$params = $this->check_param($rules,[],'post');
 
         $img = $_POST['img'];
@@ -167,6 +167,7 @@ class Good extends MY_Controller {
         if($user_info){
             if($user_info['type'] == 1){
                 $this->returnError('只有卖家才能进行商品上传~');
+                exit;
             }
             $params['shop_id'] = $user_info['id'];
         }

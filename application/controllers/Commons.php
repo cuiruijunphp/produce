@@ -103,23 +103,30 @@ class Commons extends MY_Controller {
 //            exit;
 //        }
 
-        $user_info = $this->user->get_one(['uid'=>$params['uid']]);
-        if($params['send_type'] == 2){
-            //如果是卖家，则需要判断是否是允许注册的手机号
-            //判断该手机号是否在允许注册范围内
-            $phone_is_exist = 0;
-            $this->load->model('phones');
-            $phone_list = $this->phones->get_list([],-1);
-            foreach($phone_list as $v){
-                if($v['phone'] == $params['phone']){
-                    $phone_is_exist = 1;
-                    break;
-                }
-            }
-            if($phone_is_exist == 0){
-                $this->returnError('手机号不在允许范围内');
-                exit;
-            }
+//        $user_info = $this->user->get_one(['uid'=>$params['uid']]);
+//        if($params['send_type'] == 2){
+//            //如果是卖家，则需要判断是否是允许注册的手机号
+//            //判断该手机号是否在允许注册范围内
+//            $phone_is_exist = 0;
+//            $this->load->model('phones');
+//            $phone_list = $this->phones->get_list(['phone'=>$params['phone'],'type'=>$params['send_type']],-1);
+//            foreach($phone_list as $v){
+//                if($v['phone'] == $params['phone']){
+//                    $phone_is_exist = 1;
+//                    break;
+//                }
+//            }
+//            if($phone_is_exist == 0){
+//                $this->returnError('手机号不在允许范围内');
+//                exit;
+//            }
+//        }
+
+        $this->load->model('phones');
+        $phone_list = $this->phones->get_list(['phone'=>$params['phone'],'type'=>$params['send_type']],-1);
+        if(!$phone_list){
+            $this->returnError('手机号不在允许范围内');
+            exit;
         }
 
 		//判断手机验证码是否失效
@@ -186,9 +193,9 @@ class Commons extends MY_Controller {
 					$update_res = $this->user->update($user_info['id'],$phone_data);
                     if($update_res){
                         if($params['send_type'] == 1){
-                            $this->return_data(['code'=>1],'注册卖家成功,请输入公司信息');
-                        }else{
                             $this->return_data(['code'=>1],'注册买家成功');
+                        }else{
+                            $this->return_data(['code'=>1],'注册卖家成功,请输入公司信息');
                         }
                     }else{
                         $this->returnError('注册失败');
