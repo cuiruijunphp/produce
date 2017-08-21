@@ -210,7 +210,7 @@ class Good extends MY_Controller {
         $good_info = $this->goods->read($params['id']);
         $user_info = $this->user->get_one(['uid'=>$params['uid']]);
 
-        if($good_info['good_id'] != $user_info['id']){
+        if($good_info['shop_id'] != $user_info['id']){
             $this->returnError('只有商家才能进行操作');
             exit;
         }
