@@ -105,11 +105,11 @@ class MY_Controller extends CI_Controller {
             $lang = $this->lang->line('txt_base_validation');
             foreach ($rule_arr as $rule_key => $rule_value) {
                 $this->form_validation->set_rules($rule_key, '', $rule_value, array('required' => '%s必填'
-                    , 'integer' => $lang[1]
+                    , 'integer' => '%s必须是数字'
                     , 'regex_match' => $lang[2]
-                    , 'greater_than' => $lang[3]
-                    , 'max_length' => $lang[4]
-                    , 'min_length' => $lang[5]
+                    , 'greater_than' => '%s要大于%s'
+                    , 'max_length' => '%s的最大长度是%s'
+                    , 'min_length' => '%s的最小长度是%s'
                 ));
             }
         }
