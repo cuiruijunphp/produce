@@ -252,6 +252,7 @@ class MY_Controller extends CI_Controller {
     public function returnError($msg = '', $code = '400')
     {
         echo json_encode(['code' => $code . '', 'msg' => $msg, 'data' => []]);
+        exit;
 //        $this->returnData(array(), $msg, $code);
     }
 
