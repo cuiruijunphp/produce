@@ -110,7 +110,7 @@ class Good extends MY_Controller {
 
             $img_str = explode(',',$img_tmp_1);
             $count = count($img_str);
-            if($count == 0){
+            if($count <= 1){
                 $params['img'] = '';
             }else{
                 $img_url = '';
