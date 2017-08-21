@@ -100,7 +100,7 @@ class Good extends MY_Controller {
 	 */
 	public function add(){
 		// 按设置的规则检查参数
-		$rules = ['name,price,type_id,uid,stock' => 'trim','desc,img,id,unit'=>'trim'];
+		$rules = ['name,price,type_id,stock' => 'trim|required','uid,desc,img,id,unit'=>'trim'];
 		$params = $this->check_param($rules,[],'post');
 
         $img = $_POST['img'];
