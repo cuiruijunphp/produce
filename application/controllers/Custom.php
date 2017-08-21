@@ -76,14 +76,22 @@ class Custom extends MY_Controller {
 
         $where['uid'] = $params['uid'];
         $user_info = $this->user->get_one($where);
-
-        if($user_info['type'] == 2){
-            $res = $this->user->update($user_info['id'],['company_name'=>$params['company_name']]);
-            $this->return_data(['code'=>$res]);
+        $res = $this->user->update($user_info['id'],['company_name'=>$params['company_name']]);
+        if($res){
+            $this->return_data(['code'=>$res],'注册成功');
+            exit;
         }else{
-            $this->returnError('只允许卖家注册');
+            $this->returnError('注册失败');
             exit;
         }
+
+//        if($user_info['type'] == 2){
+//            $res = $this->user->update($user_info['id'],['company_name'=>$params['company_name']]);
+//            $this->return_data(['code'=>$res]);
+//        }else{
+//            $this->returnError('只允许卖家注册');
+//            exit;
+//        }
     }
 
 }
