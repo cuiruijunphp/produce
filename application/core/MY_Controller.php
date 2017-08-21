@@ -104,7 +104,7 @@ class MY_Controller extends CI_Controller {
         if (!empty($rule_arr)) {
             $lang = $this->lang->line('txt_base_validation');
             foreach ($rule_arr as $rule_key => $rule_value) {
-                $this->form_validation->set_rules($rule_key, '', $rule_value, array('required' => $lang[0]
+                $this->form_validation->set_rules($rule_key, '', $rule_value, array('required' => '必填'
                     , 'integer' => $lang[1]
                     , 'regex_match' => $lang[2]
                     , 'greater_than' => $lang[3]
