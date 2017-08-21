@@ -110,21 +110,24 @@ class Good extends MY_Controller {
 
             $img_str = explode(',',$img_tmp_1);
             $count = count($img_str);
-            $img_url = '';
-            for($i=0;$i<$count/2;$i++){
-                $type = 'txt';
-                if (preg_match('/(data:\s*image\/(\w+);base64)/', $img_str[2*$i], $result)){
-                    $type = $result[2];
+            if($count == 0){
+                $params['img'] = '';
+            }else{
+                $img_url = '';
+                for($i=0;$i<$count/2;$i++){
+                    $type = 'txt';
+                    if (preg_match('/(data:\s*image\/(\w+);base64)/', $img_str[2*$i], $result)){
+                        $type = $result[2];
+                    }
+                    $name = time().$i.'.'.$type;
+                    $content = rtrim($img_str[2*$i+1],'"');
+                    $content = rtrim($content,'\\');
+                    if(file_put_contents('./static/uploads/goods/'.$name,base64_decode($content))){
+                        $img_url .= '/static/uploads/goods/'.$name.',';
+                    }
                 }
-                $name = time().$i.'.'.$type;
-                $content = rtrim($img_str[2*$i+1],'"');
-                $content = rtrim($content,'\\');
-                if(file_put_contents('./static/uploads/goods/'.$name,base64_decode($content))){
-                    $img_url .= '/static/uploads/goods/'.$name.',';
-                }
+                $params['img'] = $img_url;
             }
-
-            $params['img'] = $img_url;
         }
 
 //        //载入所需文件上传类库
