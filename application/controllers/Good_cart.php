@@ -113,7 +113,7 @@ class Good_cart extends MY_Controller {
         }else{
             //如果是卖家，取所有shop_id = 卖家id的订单
             $shop_id = $user_info['id'];
-            $where['u.id'] = $shop_id;
+            $where['s.shop_id'] = $shop_id;
         }
 
         $res = $this->cart->get_seller_cart_list($where,$page_size,$offset);
