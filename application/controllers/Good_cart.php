@@ -135,7 +135,7 @@ class Good_cart extends MY_Controller {
 	public function add()
 	{
 		// 按设置的规则检查参数
-		$rules = ['good_id' => 'required','num'=>'trim|integer','uid'=>'trim'];
+		$rules = ['num' => 'required','good_id'=>'trim|integer','uid'=>'trim'];
 		$params = $this->check_param($rules,[],'post');
 		if(!$params['uid']){
 			$params['uid'] = '';
