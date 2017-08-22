@@ -30,8 +30,8 @@ class Cart extends MY_Model {
 
 
     //获取订单总数
-    public function get_cart_total($where=[],$offset=0,$page_size=10){
-        $this->db->select('a.num,a.create_time,a.uid,s.name,s.img,s.price,s.desc');
+    public function get_cart_total($where=[]){
+        $this->db->select('a.num,a.create_time,a.uid,s.name,s.img,s.price,s.desc,s.unit');
         $this->db->from($this->_table.' as a');
         $this->db->join('goods as s','a.good_id = s.id','left');
         $this->db->join('user as u','u.id = s.shop_id','left');
