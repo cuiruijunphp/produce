@@ -116,7 +116,7 @@ class Good_cart extends MY_Controller {
             $where['u.id'] = $shop_id;
         }
 
-        $res = $this->cart->get_cart_list($where,$page_size,$offset);
+        $res = $this->cart->get_seller_cart_list($where,$page_size,$offset);
         if($res){
             foreach($res as $kk=>&$vv){
                 if($vv['img']){
@@ -125,7 +125,7 @@ class Good_cart extends MY_Controller {
                 }
             }
         }
-        $count = $this->cart->get_cart_total($where);
+        $count = $this->cart->get_seller_cart_total($where);
         $this->return_data(['result'=>$res,'total'=>$count]);
     }
 
