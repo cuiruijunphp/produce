@@ -65,6 +65,17 @@ class Good_cart extends MY_Controller {
 					$img_list = explode(',',trim($vv['img'],','));
 					$vv['img'] = APP_URL.$img_list[0];
 				}
+				if($vv['status']){
+					if($vv['status'] == 1){
+						$vv['stats_desc'] = '待确认';
+					}elseif($vv['status'] == 2){
+						$vv['stats_desc'] = '已拒绝';
+					}elseif($vv['status'] == 3){
+						$vv['stats_desc'] = '已确认';
+					}elseif($vv['status'] == 4){
+						$vv['stats_desc'] = '已完成';
+					}
+				}
 			}
 		}
 		$count = $this->cart->get_cart_total($where);
@@ -123,6 +134,18 @@ class Good_cart extends MY_Controller {
                     $img_list = explode(',',trim($vv['img'],','));
                     $vv['img'] = APP_URL.$img_list[0];
                 }
+
+				if($vv['status']){
+					if($vv['status'] == 1){
+						$vv['stats_desc'] = '待确认';
+					}elseif($vv['status'] == 2){
+						$vv['stats_desc'] = '已拒绝';
+					}elseif($vv['status'] == 3){
+						$vv['stats_desc'] = '已确认';
+					}elseif($vv['status'] == 4){
+						$vv['stats_desc'] = '已完成';
+					}
+				}
             }
         }
         $count = $this->cart->get_seller_cart_total($where);
