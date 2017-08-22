@@ -12,7 +12,7 @@ class Cart extends MY_Model {
 
     //获取买家订单详细列表
     public function get_cart_list($where=[],$offset=0,$page_size=10){
-        $this->db->select('a.num,a.create_time,a.uid,s.name,s.img,s.price,s.desc');
+        $this->db->select('a.num,a.create_time,a.uid,s.name,s.img,s.price,s.desc,u.mobile,u.company_name');
         $this->db->from($this->_table.' as a');
         $this->db->join('goods as s','a.good_id = s.id','left');
         $this->db->join('user as u','u.id = s.shop_id','left');
@@ -57,6 +57,7 @@ class Cart extends MY_Model {
             $this->db->limit($page_size, $offset);
         }
         $result = $this->db->get();
+        echo $this->db->last_query();
 
         return $result->num_rows() ? $result->result_array() : [];
     }
