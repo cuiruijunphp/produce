@@ -180,7 +180,8 @@ class Good_cart extends MY_Controller {
 			'uid' => $params['uid'],
 			'good_id' => $params['good_id'],
 			'num' => $num,
-			'shop_id' => $shop_id
+			'create_time' => date('Y-m-d H:i:s',time()),
+			'shop_id' => $shop_id,
 		];
 
         $res = $this->cart->add($params);
@@ -196,6 +197,58 @@ class Good_cart extends MY_Controller {
 		}else{
 			$this->returnError('操作失败');
             exit;
+		}
+	}
+
+	/*
+	 * 更新订单状态(1-未确认，2-拒绝，3-已确认,4-已完成(预留))
+	 */
+	public function update_cart_status(){
+		// 按设置的规则检查参数
+		$rules = ['cart_id,status' => 'required|integer','uid'=>'trim'];
+		$params = $this->check_param($rules,[],'post');
+		if(!$params['uid']){
+			$params['uid'] = '';
+		}
+		$return_code = $this->is_uid($params['uid'],1);
+		if($return_code == -1){
+			$this->returnError('先登录',501);
+			exit;
+		}
+
+		if($return_code == -2){
+			$this->returnError('请先绑定手机号',509);
+			exit;
+		}
+		$user_info = $this->user->get_one(['uid'=>$params['uid']]);
+		if($user_info['type'] == 1){
+			$this->returnError('只有卖家才能操作');
+			exit;
+		}
+
+		$cart_info = $this->cart->read($params['cart_id']);
+		if($cart_info['status'] > 1){
+			$this->returnError('您已经操作过这个订单了,请勿重复操作!');
+			exit;
+		}
+
+		if($params['status'] == 2){
+			$update_data = [
+				'status' => $params['status'],
+				'refuse_time' => date('Y-m-d H:i:s',time()),
+			];
+		}elseif($params['status'] == 3){
+			$update_data = [
+					'status' => $params['status'],
+					'refuse_time' => date('Y-m-d H:i:s',time()),
+			];
+		}
+		$res = $this->cart->update($params['cart_id'],$update_data);
+		if($res){
+			$this->return_data(['code'=>1],'操作成功');
+		}else{
+			$this->returnError('操作失败');
+			exit;
 		}
 	}
 }

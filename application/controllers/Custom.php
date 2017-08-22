@@ -121,7 +121,7 @@ class Custom extends MY_Controller {
         }
 
         if(($user_info['type'] == 2) && $user_info['mobile']){
-            $this->returnError('您不是买家哦~请返回公众号主页点击“我是买家”选项进入买家主页~');
+            $this->returnError('您不是买家哦~请返回公众号主页点击“我是卖家家”选项进入卖家主页~');
             exit;
         }
         $this->return_data($user_info);
@@ -154,7 +154,7 @@ class Custom extends MY_Controller {
         }
 
         if(($user_info['type'] == 1) && $user_info['mobile']){
-            $this->returnError('您不是卖家哦~请返回公众号主页点击“我是卖家”选项进入卖家主页~');
+            $this->returnError('您不是卖家哦~请返回公众号主页点击“我是买家”选项进入买家主页~');
             exit;
         }
         $this->return_data($user_info);
