@@ -94,4 +94,60 @@ class Custom extends MY_Controller {
 //        }
     }
 
+    /*
+     *
+     * 买家---我的-个人中心
+     *
+     */
+    public function my_center(){
+        // 按设置的规则检查参数
+        $rules = ['uid' => 'trim'];
+        $params = $this->check_param($rules);
+
+        if(!$params['uid']){
+            $params['uid'] = '';
+        }
+        $return_code = $this->is_uid($params['uid']);
+        if($return_code == -1){
+            $this->returnError('先登录',501);
+            exit;
+        }
+
+        $where['uid'] = $params['uid'];
+        $user_info = $this->user->get_one($where);
+        if($user_info['mobile']){
+            $this->returnError('请先绑定手机号',507);
+            exit;
+        }
+        $this->return_data($user_info);
+    }
+
+    /*
+     *
+     * 卖家---我的-个人中心
+     *
+     */
+    public function seller_my_center(){
+        // 按设置的规则检查参数
+        $rules = ['uid' => 'trim'];
+        $params = $this->check_param($rules);
+
+        if(!$params['uid']){
+            $params['uid'] = '';
+        }
+        $return_code = $this->is_uid($params['uid']);
+        if($return_code == -1){
+            $this->returnError('先登录',501);
+            exit;
+        }
+
+        $where['uid'] = $params['uid'];
+        $user_info = $this->user->get_one($where);
+        if($user_info['mobile']){
+            $this->returnError('请先绑定手机号',507);
+            exit;
+        }
+        $this->return_data($user_info);
+    }
+
 }
