@@ -66,7 +66,7 @@ class Cart extends MY_Model {
         $this->db->select('a.num,a.create_time,a.uid,s.name,s.img,s.price,s.desc,s.unit,u.company_name,u.mobile');
         $this->db->from($this->_table.' as a');
         $this->db->join('goods as s','a.good_id = s.id','left');
-        $this->db->join('user as u','u.uid = s.uid','left');
+        $this->db->join('user as u','u.uid = a.uid','left');
         if(!empty($where)){
             $this->db->where($where);
         }
