@@ -53,9 +53,9 @@ class Good_cart extends MY_Controller {
 		if($user_info['type'] == 1){
 			$where['a.uid'] = $params['uid'];
 		}else{
-			//如果是卖家，取所有shop_id = 卖家id的订单
-			$shop_id = $user_info['id'];
-			$where['u.id'] = $shop_id;
+			//如果是卖家，则提示相应信息
+			$this->returnError('只有买家才能操作');
+			exit;
 		}
 
 		$res = $this->cart->get_cart_list($where,$page_size,$offset);
