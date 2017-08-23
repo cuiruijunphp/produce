@@ -207,7 +207,7 @@ class Good_cart extends MY_Controller {
 			'shop_id' => $shop_id,
 		];
 
-        $res = $this->cart->add($params);
+        $res = $this->cart->add($insert_data);
 
 		if($res){
 			//减少库存
