@@ -263,7 +263,7 @@ class Good_cart extends MY_Controller {
 		}elseif($params['status'] == 3){
 			$update_data = [
 					'status' => $params['status'],
-					'refuse_time' => date('Y-m-d H:i:s',time()),
+					'confirm_time' => date('Y-m-d H:i:s',time()),
 			];
 		}
 		$res = $this->cart->update($params['cart_id'],$update_data);
